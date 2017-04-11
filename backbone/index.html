@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Backbone Tutorial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+    />
 </head>
 
 <body>
@@ -21,6 +22,12 @@
                     <th>URL</th>
                     <th>Action</th>
                 </tr>
+                <tr>
+                    <td><input type="text" class="form-control author-input"></td>
+                    <td><input type="text" class="form-control title-input"></td>
+                    <td><input type="text" class="form-control url-input"></td>
+                    <td><button class="btn btn-primary add-blog">Add</button></td>
+                </tr>
             </thead>
             <tbody class="blogs-list"></tbody>
         </table>
@@ -28,9 +35,9 @@
 
     <script type="text/template" class="blogs-list-template">
         <td><span class="author"><%= author %></span></td>
-        <td><span class="author"><%= author %></span></td>
-        <td><span class="author"><%= author %></span></td>
-        <td><button class="btn btn-warning edit-blog">Edit</button><button class="btn btn-danger delete-blog">Delete</button></td>
+        <td><span class="author"><%= title %></span></td>
+        <td><span class="author"><%= url %></span></td>
+        <td><button class="btn btn-warning edit-blog">Edit</button> <button class="btn btn-danger delete-blog">Delete</button></td>
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
