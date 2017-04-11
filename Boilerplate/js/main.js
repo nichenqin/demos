@@ -1,50 +1,48 @@
-// In the first few sections, we do all the coding here.
-// Later, you'll see how to organize your code into separate
-// files and modules.
-
 var Song = Backbone.Model.extend();
 
 var Songs = Backbone.Collection.extend({
     model: Song
 });
 
-var songs = new Songs();
+var SongView = Backbone.View.extend({
+    tagName: 'li',
 
-songs.add(new Song({
-    title: 'Song 1',
-    genre: 'jazz',
-    downloads: 110
-}), {
-    at: 0
+    render: function () {
+        this.$el.html(this.model.get('title'));
+
+        return this;
+    }
 });
 
-songs.push(new Song({
-    title: 'Song 2',
-    genre: 'jazz',
-    downloads: 90
-}));
-
-var jazzSongs = songs.where({
-    genre: 'jazz'
+var SongsView = Backbone.View.extend({
+    render: function () {
+        var self = this;
+        this.model.each(function (song) {
+            var songView = new SongView({
+                model: song
+            });
+            self.$el.append(songView.render().$el);
+        });
+        return this;
+    }
 });
 
-var findJazzSongs = songs.findWhere({
-    genre: 'jazz'
+var songs = new Songs([
+    new Song({
+        title: 'Blue in Green'
+    }),
+    new Song({
+        title: 'So What'
+    }),
+    new Song({
+        title: 'All Blues'
+    }),
+
+]);
+
+var songsView = new SongsView({
+    model: songs,
+    el: '#songs'
 });
 
-var filteredSongs = songs.where({
-    title: 'Song 2',
-    genre: 'jazz'
-});
-
-console.log('Filtered Songs', filteredSongs);
-
-var topDownloads = songs.filter(function (song) {
-    return song.get('downloads') > 100;
-});
-
-console.log('Top Downloads', topDownloads);
-
-songs.each(function (song) {
-    console.log(song);
-});
+songsView.render();
