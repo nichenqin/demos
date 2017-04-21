@@ -1,4 +1,3 @@
-import { AuthService } from './auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +13,8 @@ import { EditServerComponent } from './servers/edit-server/edit-server.component
 import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CanDeactivateGurad } from './servers/edit-server/can-deactivate-guard.service';
+import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 
 const appRoutes: Routes = [
@@ -25,10 +26,10 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'servers', canActivate: [AuthGuard], component: ServersComponent,
+    path: 'servers', canActivateChild: [AuthGuard], component: ServersComponent,
     children: [
       { path: ':id', component: ServerComponent },
-      { path: ':id/edit', component: EditServerComponent }
+      { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGurad] }
     ]
   },
   { path: 'not-found', component: PageNotFoundComponent },
@@ -52,7 +53,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ServersService, AuthService, AuthGuard],
+  providers: [ServersService, AuthService, AuthGuard, CanDeactivateGurad],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
