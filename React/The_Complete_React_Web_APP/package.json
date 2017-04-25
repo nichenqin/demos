@@ -1,0 +1,9 @@
+{
+  "name": "The_Complete_React_Web_APP",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
