@@ -1,4 +1,4 @@
-import { FETCH_POSTS } from '../actions/index'
+import { FETCH_POSTS } from '../actions/index';
 
 export default (state = {}, action) => {
 
@@ -9,8 +9,8 @@ export default (state = {}, action) => {
                     targetObj[post.id] = post;
                     return targetObj;
                 }, {})
-            )
+            );
         default:
             return state;
     }
-}
+};
