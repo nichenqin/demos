@@ -27,3 +27,15 @@ export function createPost(values, callback) {
         payload: request
     };
 }
+
+export const FETCH_POST = 'FETCH_POST';
+
+export function fetchPost(id) {
+    const url = `${ROOT_URL}/posts/${id}?key=${API_KEY}`;
+    const request = axios.get(url);
+
+    return {
+        type: FETCH_POST,
+        payload: request
+    };
+}
