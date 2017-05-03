@@ -39,3 +39,16 @@ export function fetchPost(id) {
         payload: request
     };
 }
+
+export const DELETE_POST = 'DELETE_POST';
+
+export function deletePost(id, callback) {
+    const url = `${ROOT_URL}/posts/${id}?key=${API_KEY}`;
+    const request = axios.delete(url)
+        .then(() => callback());
+
+    return {
+        type: DELETE_POST,
+        payload: id
+    };
+}
