@@ -1,0 +1,22 @@
+<head>
+
+</head>
+
+<body>
+    <button type="button">Click</button>
+    <script>
+        function startGames() {
+            let counter = 0;
+
+            document.querySelector('button').addEventListener('click', () => { ++counter; });
+
+            return new Promise((resolve, reject) => {
+                setTimeout(() => { (counter > 5) ? resolve() : reject() }, 2000);
+            })
+        }
+
+        startGames()
+            .then(() => { alert('win') })
+            .catch(() => { alert('lost') });
+    </script>
+</body>
