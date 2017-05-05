@@ -13,8 +13,8 @@ describe('Reading users out of the database', () => {
   it('finds all users name of Joe', (done) => {
     // do not use the instance of User
     User.find({ name: 'Joe' })
-      .then((user) => {
-        console.log(user);
+      .then((users) => {
+        assert(users[0]._id.toString() === joe._id.toString());
         done();
       });
   });
