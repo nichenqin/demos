@@ -7,7 +7,10 @@ mongoose.Promise = global.Promise;
 before((done) => {
   mongoose.connect('mongodb://localhost/users_test');
   mongoose.connection
-    .once('open', () => { done(); })
+    .once('open', () => {
+      console.log('connected');
+      done();
+    })
     .on('error', error => { console.warn('warn', error); });
 });
 
