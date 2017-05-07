@@ -11,7 +11,12 @@ describe('Virtual Types', () => {
     joe.save()
       .then(() => User.findOne({ name: 'Joe' }))
       .then((user) => {
-        assert(user.postCount === 1);
+        user.posts.push({ title: 'another post' });
+        return user.save();
+      })
+      .then(() => User.findOne({ name: 'Joe' }))
+      .then((user) => {
+        assert(user.postCount === 2);
         done();
       });
   });
