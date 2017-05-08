@@ -17,7 +17,6 @@ describe('Middleware', () => {
   });
 
   it('users clean up dangling blogposts on remove', (done) => {
-    console.log(joe);
     joe.remove()
       .then(() => BlogPost.count())
       .then((count) => {
