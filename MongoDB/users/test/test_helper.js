@@ -15,9 +15,12 @@ before((done) => {
 });
 
 beforeEach((done) => {
-  mongoose.connection.collections.users.drop(() => {
-    // ready to run the next test
-    // tell mocha can run next test now
-    done();
+  const { users, blogposts, comments } = mongoose.connection.collections;
+  users.drop(() => {
+    blogposts.drop(() => {
+      comments.drop(() => {
+        done();
+      });
+    });
   });
 });
