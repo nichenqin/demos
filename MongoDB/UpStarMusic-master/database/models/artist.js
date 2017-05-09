@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const { Scheme } = mongoose;
+const { Schema } = mongoose;
 
 const AlbumSchema = require('./album');
 
-const ArtistSchema = new Scheme({
+const ArtistSchema = new Schema({
   name: String,
   age: Number,
   yearsActive: Number,
