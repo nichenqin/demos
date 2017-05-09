@@ -1,0 +1,11 @@
+{
+  "name": "muber",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.15.2",
+    "mocha": "^3.3.0",
+    "mongoose": "^4.9.8"
+  }
+}
