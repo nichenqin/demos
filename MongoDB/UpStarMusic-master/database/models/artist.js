@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const AlbumSchema = require('./album');
 
 const ArtistSchema = new Schema({
-  name: String,
+  name: { type: String, text: true },
   age: Number,
   yearsActive: Number,
   image: String,
