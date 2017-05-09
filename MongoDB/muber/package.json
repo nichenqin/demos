@@ -4,9 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "nodemon --exec mocha -R min"
+    "test": "nodemon --exec \"mocha --recursive -R min\""
   },
   "devDependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "mocha": "^3.3.0",
     "mongoose": "^4.9.8",
