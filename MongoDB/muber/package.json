@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "nodemon --exec mocha -R min"
+  },
   "devDependencies": {
     "express": "^4.15.2",
     "mocha": "^3.3.0",
-    "mongoose": "^4.9.8"
+    "mongoose": "^4.9.8",
+    "supertest": "^3.0.0"
   }
 }
