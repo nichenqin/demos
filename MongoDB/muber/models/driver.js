@@ -6,6 +6,6 @@ const DriverSchema = new Schema({
   driving: { type: Boolean, default: false }
 });
 
-const Driver = mongoose.model('drver', DriverSchema);
+const Driver = mongoose.model('driver', DriverSchema);
 
 module.exports = Driver;
