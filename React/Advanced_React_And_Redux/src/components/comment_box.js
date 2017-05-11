@@ -24,8 +24,9 @@ class CommentBox extends Component {
     return (
       <form
         onSubmit={this.handleSubmit.bind(this)}
-        className="comment-box">
+        className="comment-box form-gourp">
         <textarea
+          className="form-control"
           value={this.state.comment}
           onChange={this.handleChange.bind(this)}
         />

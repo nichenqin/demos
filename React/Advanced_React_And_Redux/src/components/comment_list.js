@@ -8,13 +8,13 @@ class CommentList extends Component {
   }
 
   renderCommentList() {
-    return this.props.comments.map(comment => <li>{comment}</li>);
+    return this.props.comments.map(comment => <li className="list-group-item">{comment}</li>);
   }
 
   render() {
     return (
       <ul
-        className="comment-list"
+        className="comment-list list-group"
       >
         {this.renderCommentList()}
       </ul>
