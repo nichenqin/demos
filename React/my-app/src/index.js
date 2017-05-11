@@ -1,9 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import reducers from './reducers';
+
+import Routes from './route.jsx';
 import './index.css';
 
+const createStoreWithMiddleware = applyMiddleware()(createStore);
+
 ReactDOM.render(
-  <App />,
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <Routes />
+  </Provider>,
   document.getElementById('root')
 );
