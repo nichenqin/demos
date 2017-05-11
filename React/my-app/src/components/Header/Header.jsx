@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
+import * as actions from '../../actions';
 
 class Header extends Component {
     authButton() {
-        return <button className="btn btn-success">Sign In</button>;
+        const btnClass = this.props.auth ? 'btn-warning' : 'btn-success';
+
+        return <button
+            onClick={() => this.props.toggleAuth(!this.props.auth)}
+            className={classnames('btn', btnClass)}
+        >
+            {this.props.auth ? 'Sign Out' : 'Sign In'}
+        </button>;
     }
 
     render() {
@@ -29,4 +38,6 @@ class Header extends Component {
     }
 }
 
-export default Header;
+const mapStateToProps = ({ auth }) => { return { auth }; };
+
+export default connect(mapStateToProps, actions)(Header);
