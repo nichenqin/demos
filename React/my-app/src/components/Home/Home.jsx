@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Header from '../Header/Header';
 
 class Home extends Component {
   render() {
     return (
-      <div className="App">
-        <Header></Header>
-      </div>
+      <h1>
+        Home
+      </h1>
     );
   }
 }
