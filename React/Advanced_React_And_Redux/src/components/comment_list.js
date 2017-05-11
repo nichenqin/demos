@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class CommentList extends Component {
 
-  renderCommentList() {
+  constructor(props) {
+    super(props);
+  }
 
+  renderCommentList() {
+    return this.props.comments.map(comment => <li>{comment}</li>);
   }
 
   render() {
@@ -17,4 +22,6 @@ class CommentList extends Component {
   }
 }
 
-export default CommentList;
+const mapStateToProps = ({ comments }) => { return { comments }; };
+
+export default connect(mapStateToProps)(CommentList);

@@ -14,4 +14,10 @@ describe('CommentList', () => {
     expect(component.find('li').length).to.equal(3);
   });
 
+  it('shows each comment that is provider', () => {
+    expect(component).to.contain('new comment');
+    expect(component).to.contain('other new comment');
+    expect(component).to.contain('another new comment');
+  });
+
 });
