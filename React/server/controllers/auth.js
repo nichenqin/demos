@@ -15,11 +15,9 @@ exports.signup = function (req, res, next) {
       if (existingUser) return res.status(422).send({ error: 'Email is in use' });
 
       const user = new User({ email, password });
-      user.save(err => {
-        if (err) return next(err);
-
-        res.json({ token: tokenForUser(user) });
-      });
+      user.save()
+        .then(() => res.json({ token: tokenForUser(user) }))
+        .catch(err => next(err));
     })
     .catch(err => next(err));
 
