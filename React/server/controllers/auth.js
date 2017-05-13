@@ -10,16 +10,21 @@ function tokenForUser(user) {
 exports.signup = function (req, res, next) {
   const { email, password } = req.body;
 
-  User.findOne({ email }, function (err, existingUser) {
-    if (err) return next(err);
+  User.findOne({ email })
+    .then(existingUser => {
+      if (existingUser) return res.status(422).send({ error: 'Email is in use' });
 
-    if (existingUser) return res.status(422).send({ error: 'Email is in use' });
+      const user = new User({ email, password });
+      user.save(err => {
+        if (err) return next(err);
 
-    const user = new User({ email, password });
-    user.save(err => {
-      if (err) return next(err);
+        res.json({ token: tokenForUser(user) });
+      });
+    })
+    .catch(err => next(err));
 
-      res.json({ token: tokenForUser(user) });
-    });
-  });
+};
+
+exports.signin = function (req, res, next) {
+  res.send({ token: tokenForUser(req.user) });
 };
