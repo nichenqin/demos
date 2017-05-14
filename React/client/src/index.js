@@ -12,8 +12,8 @@ import './index.css';
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  < Provider store={createStoreWithMiddleware(reducers)} >
     <Routes />
-  </Provider>,
+  </Provider >,
   document.getElementById('root')
 );
