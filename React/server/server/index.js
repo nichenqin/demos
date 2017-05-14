@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const router = require('./router');
 
@@ -11,6 +12,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:auth/auth');
 
 app.use(morgan('combined'));
+app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
 
 router(app);
