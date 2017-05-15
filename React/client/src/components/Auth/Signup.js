@@ -43,7 +43,6 @@ class SignUp extends Component {
         {error && touched && <div className="help-block">{error}</div>}
       </div>
     );
-
   }
 
   renderAlert = () => {
@@ -53,7 +52,6 @@ class SignUp extends Component {
           <strong>Oops! </strong> {this.props.auth.error}
         </div>
       );
-
     }
   }
 

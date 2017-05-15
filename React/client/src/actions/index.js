@@ -49,7 +49,6 @@ export const signupUser = ({ email, password }, history) => {
         history.push('/');
       })
       .catch(err => {
-        console.log(err.response);
         dispatch(authError(err.response.data.error));
       });
   };
