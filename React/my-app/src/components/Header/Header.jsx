@@ -6,11 +6,12 @@ import * as actions from '../../actions';
 
 class Header extends Component {
   authButton() {
-    const btnClass = this.props.auth ? 'btn-warning' : 'btn-success';
+    const btnclass = this.props.auth ? 'btn-warning' : 'btn-success';
 
     return <button
+      type="button"
       onClick={() => this.props.toggleAuth(!this.props.auth)}
-      className={classnames('btn', btnClass)}
+      className={classnames('btn', btnclass)}
     >
       {this.props.auth ? 'Sign Out' : 'Sign In'}
     </button>;
@@ -18,24 +19,26 @@ class Header extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-inverse bg-primary">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/">Home</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/resources">resources</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/users">Users</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/about">About</Link>
-          </li>
-          <li className="nav-item">
-            {this.authButton()}
-          </li>
-        </ul>
+      <nav className="navbar navbar-toggleable-md navbar-inverse bg-primary">
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav">
+            <li className="nav-item active">
+              <Link to="/" className="nav-link">Home</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/resources" className="nav-link">Resources</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/users" className="nav-link">Users</Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/about" className="nav-link">About</Link>
+            </li>
+            <li className="nav-item">
+              {this.authButton()}
+            </li>
+          </ul>
+        </div>
       </nav>
     );
   }
