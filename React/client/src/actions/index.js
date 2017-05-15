@@ -39,3 +39,18 @@ export function signoutUser() {
 
   return { type: UNAUTH_USER };
 }
+
+export const signupUser = ({ email, password }, history) => {
+  return dispatch => {
+    axios.post(`${ROOT_URL}/signup`, { email, password })
+      .then(response => {
+        dispatch({ type: AUTH_USER });
+        localStorage.setItem('token', response.data.token);
+        history.push('/');
+      })
+      .catch(err => {
+        console.log(err.response);
+        dispatch(authError(err.response.data.error));
+      });
+  };
+};
