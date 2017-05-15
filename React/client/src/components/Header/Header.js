@@ -16,8 +16,8 @@ class Header extends Component {
       return <Link className={btnClass} to="/signout">Sigh Out</Link>;
     } else {
       return [
-        <Link className={btnClass} to="/signin">Sigh In</Link>,
-        <Link className={btnClass} to="/signup">Sigh Up</Link>];
+        <Link className={btnClass} key="signin" to="/signin" style={{ marginLeft: 10 + 'px' }}>Sigh In</Link>,
+        <Link className={btnClass} key="signup" to="/signup">Sigh Up</Link>];
     }
 
   }
