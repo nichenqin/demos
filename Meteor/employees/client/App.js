@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import Employees from './Pages/Employees/Employees';
 
 class App extends Component {
     render() {
         return (
             <h1>
-                App works;
+                <Employees />
             </h1>
         );
     }
