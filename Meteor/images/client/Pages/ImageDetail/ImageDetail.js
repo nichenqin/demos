@@ -1,17 +1,21 @@
 import React, { Component } from "react";
+import ImageScores from "./ImageScroes";
 
 class ImageDetail extends Component {
     render() {
+        const { image } = this.props;
         return (
             <li>
                 <div className="media list-group-item">
                     <div className="media-left">
-                        <img src={this.props.image.link} alt="" />
+                        <img src={image.link} alt="" />
                     </div>
                     <div className="media-body">
-                        <h4 className="media-heading">
-                            {this.props.image.title}
-                        </h4>
+                        <h3 className="media-heading">
+                            {image.title}
+                        </h3>
+                        <p>{image.description}</p>
+                        <ImageScores ups={image.ups} downs={image.downs} />
                     </div>
                 </div>
             </li>

@@ -9,7 +9,9 @@ const images = [
 
 class ImageList extends Component {
     renderImages() {
-        return images.map(image => <ImageDetail key={image.title} image={image} />);
+        const { images } = this.props;
+        const validatedImages = images.filter(image => !image.is_album);
+        return validatedImages.map(image => <ImageDetail key={image.title} image={image} />);
     }
 
     render() {
