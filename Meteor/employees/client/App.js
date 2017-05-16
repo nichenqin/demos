@@ -4,9 +4,9 @@ import Employees from './Pages/Employees/Employees';
 class App extends Component {
     render() {
         return (
-            <h1>
+            <div>
                 <Employees />
-            </h1>
+            </div>
         );
     }
 }
