@@ -116,6 +116,10 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   dependencies:
     inherits "^2.0.1"
 
+connect-route@^0.1.5:
+  version "0.1.5"
+  resolved "http://registry.npm.taobao.org/connect-route/download/connect-route-0.1.5.tgz#e3c218319d2e88a8a9ae0b0e0fe09a729c39744a"
+
 console-browserify@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/console-browserify/download/console-browserify-1.1.0.tgz#f0241c45730a9fc6323b206dbf38edc741d0bb10"
@@ -231,7 +235,7 @@ evp_bytestokey@^1.0.0:
   dependencies:
     create-hash "^1.1.1"
 
-fbjs@^0.8.9:
+fbjs@^0.8.4, fbjs@^0.8.9:
   version "0.8.12"
   resolved "http://registry.npm.taobao.org/fbjs/download/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
   dependencies:
@@ -455,6 +459,13 @@ querystring@0.2.0:
 randombytes@^2.0.0, randombytes@^2.0.1:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/randombytes/download/randombytes-2.0.3.tgz#674c99760901c3c4112771a31e521dc349cc09ec"
+
+react-addons-pure-render-mixin@^15.5.2:
+  version "15.5.2"
+  resolved "http://registry.npm.taobao.org/react-addons-pure-render-mixin/download/react-addons-pure-render-mixin-15.5.2.tgz#ebb846aeb2fd771336c232822923108f87d5bff2"
+  dependencies:
+    fbjs "^0.8.4"
+    object-assign "^4.1.0"
 
 react-dom@^15.5.4:
   version "15.5.4"
