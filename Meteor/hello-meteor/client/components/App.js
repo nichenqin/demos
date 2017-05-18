@@ -9,8 +9,10 @@ const App = (props) => {
   return (
     <div>
       <Header />
-      <PlyerList players={players} />
-      <AddPlayer players={players} />
+      <div className="wrapper">
+        <PlyerList players={players} />
+        <AddPlayer players={players} />
+      </div>
     </div>
   );
 };

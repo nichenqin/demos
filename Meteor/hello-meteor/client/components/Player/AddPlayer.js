@@ -9,7 +9,7 @@ class AddPlayer extends Component {
 
     if (playerName) {
       e.target.playerName.value = '';
-      Players.insert({ name: playerName });
+      Players.insert({ name: playerName, score: 0 });
     }
   }
 
