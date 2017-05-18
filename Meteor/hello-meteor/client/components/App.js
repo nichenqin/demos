@@ -1,10 +1,17 @@
 import React from 'react';
+import Header from './Header/Header';
+import PlyerList from './Player/PlayerList';
+import AddPlayer from './Player/AddPlayer';
 
-const App = () => {
+const App = (props) => {
+  const { players } = props;
+
   return (
-    <h1>
-      App Works!
-    </h1>
+    <div>
+      <Header />
+      <PlyerList players={players} />
+      <AddPlayer players={players} />
+    </div>
   );
 };
 
