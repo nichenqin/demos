@@ -15,10 +15,10 @@ class AddPlayer extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type="text" name="playerName" placeholder="player name here..." />
-          <button>Add player</button>
+      <div className="item">
+        <form className="form" onSubmit={this.handleSubmit.bind(this)}>
+          <input className="form__input" type="text" name="playerName" placeholder="player name here..." />
+          <button className="btn">Add player</button>
         </form>
       </div>
     );

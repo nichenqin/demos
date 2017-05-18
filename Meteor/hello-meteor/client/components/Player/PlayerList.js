@@ -7,7 +7,7 @@ class PlayerList extends Component {
     const { players } = this.props;
     return players.length
       ? players.map(player => <PlayerItem key={player._id} player={player} />)
-      : <div>Add first player</div>;
+      : <div className="item"><p className="item__message">Add first player</p></div>;
   }
 
   render() {

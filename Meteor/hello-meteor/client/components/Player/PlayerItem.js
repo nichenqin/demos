@@ -5,11 +5,30 @@ class PlayerItem extends Component {
   render() {
     const { player: { _id, name, score } } = this.props;
     return (
-      <div key={_id}>
-        {name} has {score}
-        <button onClick={() => Players.update({ _id }, { $inc: { score: 1 } })}>+1</button>
-        <button onClick={() => Players.update({ _id }, { $inc: { score: -1 } })}>-1</button>
-        <button onClick={() => Players.remove({ _id })}>X</button>
+      <div key={_id} className="item">
+        <div className="player">
+          <div className="player__desc">
+            <h3 className="player__name">{name}</h3>
+            <p className="player__stats">{score} point(s)</p>
+          </div>
+          <div className="player__actions">
+            <button
+              className="btn btn--round"
+              onClick={() => Players.update({ _id }, { $inc: { score: 1 } })}>
+              +1
+          </button>
+            <button
+              className="btn btn--round"
+              onClick={() => Players.update({ _id }, { $inc: { score: -1 } })}>
+              -1
+          </button>
+            <button
+              className="btn btn--round"
+              onClick={() => Players.remove({ _id })}>
+              X
+          </button>
+          </div>
+        </div>
       </div>
     );
   }
