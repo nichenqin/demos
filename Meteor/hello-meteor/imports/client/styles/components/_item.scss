@@ -3,6 +3,24 @@
   border: 1px solid #e8e8e8;
   margin-bottom: 1.3rem;
   padding: 1.3rem;
+  @at-root{
+    #{&}__position{
+      @at-root{
+        #{&}_1{
+          background: $green;
+          border-color: $green-alt;
+        }
+        #{&}_2{
+          background: $blue;
+          border-color: $blue-alt;
+        }
+        #{&}_3{
+          background: $red;
+          border-color: $red-alt;
+        }
+      }
+    }
+  }
   @at-root {
     #{&}__message {
       font-size: 1.3rem;

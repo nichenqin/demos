@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FlipMove from 'react-flip-move';
 
 import PlayerItem from './PlayerItem';
 
@@ -13,7 +14,9 @@ class PlayerList extends Component {
   render() {
     return (
       <div>
-        {this.renderPlayer()}
+        <FlipMove>
+          {this.renderPlayer()}
+        </FlipMove>
       </div>
     );
   }

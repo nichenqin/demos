@@ -5,6 +5,7 @@ import AddPlayer from './Player/AddPlayer';
 
 const App = (props) => {
   const { players } = props;
+  console.log(players);
 
   return (
     <div>

@@ -369,6 +369,10 @@ node-fetch@^1.0.1:
     encoding "^0.1.11"
     is-stream "^1.0.1"
 
+numeral@^2.0.6:
+  version "2.0.6"
+  resolved "http://registry.npm.taobao.org/numeral/download/numeral-2.0.6.tgz#4ad080936d443c2561aed9f2197efffe25f4e506"
+
 object-assign@^4.1.0:
   version "4.1.1"
   resolved "http://registry.npm.taobao.org/object-assign/download/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -464,6 +468,10 @@ react-dom@^15.5.4:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "~15.5.7"
+
+react-flip-move@^2.9.11:
+  version "2.9.11"
+  resolved "http://registry.npm.taobao.org/react-flip-move/download/react-flip-move-2.9.11.tgz#dda6de9b6a0df64701cf003a87f9094d401f643a"
 
 react@^15.5.4:
   version "15.5.4"

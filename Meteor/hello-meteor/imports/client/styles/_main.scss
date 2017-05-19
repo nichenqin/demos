@@ -29,6 +29,7 @@ select {
   max-width: 50rem;
   padding: 1.3rem;
 }
+@import './common/varibles';
 
 @import './components/Header';
 @import './components/item';
