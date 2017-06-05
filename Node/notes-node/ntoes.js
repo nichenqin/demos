@@ -8,4 +8,12 @@ const getAll = () => {
   console.log('>>getting all notes');
 }
 
-module.exports = { addNote, getAll }
+const getNote = title => {
+  console.log('>>Getting note: ', title);
+}
+
+const removeNote = title => {
+  console.log('>>Removing note', title);
+}
+
+module.exports = { addNote, getAll, getNote, removeNote };

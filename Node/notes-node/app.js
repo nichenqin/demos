@@ -8,6 +8,7 @@ const notes = require('./ntoes');
 
 const argv = yargs.argv;
 const { title, body } = argv;
+const [command] = argv._;
 
 console.log('>>yarg', argv);
 
@@ -16,11 +17,13 @@ switch (command) {
     notes.addNote(title, body);
     break;
   case 'list':
-    console.log('list');
     notes.getAll();
     break;
   case 'read':
-    console.log('read');
+    notes.getNote(title)
+    break;
+  case 'remove':
+    notes.removeNote(title)
     break;
 
   default:
