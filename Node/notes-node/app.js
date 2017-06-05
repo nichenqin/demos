@@ -1,9 +1,29 @@
-console.log('starting app');
+console.log('starting app.js');
 
 const fs = require('fs');
-const os = require('os');
+const _ = require('lodash');
+const yargs = require('yargs');
 
-var user = os.userInfo();
-console.log(user);
+const notes = require('./ntoes');
 
-// fs.appendFileSync('greeting.txt', 'hello world!');
+const argv = yargs.argv;
+const { title, body } = argv;
+
+console.log('>>yarg', argv);
+
+switch (command) {
+  case 'add':
+    notes.addNote(title, body);
+    break;
+  case 'list':
+    console.log('list');
+    notes.getAll();
+    break;
+  case 'read':
+    console.log('read');
+    break;
+
+  default:
+    console.log('not recognized');
+    break;
+}
