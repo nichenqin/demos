@@ -1,7 +1,5 @@
 console.log('starting app.js');
 
-const fs = require('fs');
-const _ = require('lodash');
 const yargs = require('yargs');
 
 const notes = require('./notes');
@@ -13,23 +11,45 @@ const [command] = argv._;
 console.log('>>yarg', argv);
 
 switch (command) {
-  case 'add':
+  case 'add': {
     const note = notes.addNote(title, body);
-    note
-      ? console.log('note created')
-      : console.log(`Note ${title} is in use`);
+    if (note) {
+      console.log('note created');
+      console.log('===');
+      console.log(`Title: ${title}`);
+      console.log(`Body: ${body}`);
+    } else {
+      console.log(`Note ${title} is in use`);
+    }
+
     break;
-  case 'list':
+  }
+  case 'list': {
     notes.getAll();
     break;
-  case 'read':
-    notes.getNote(title);
-    break;
-  case 'remove':
-    notes.removeNote(title);
-    break;
+  }
+  case 'read': {
+    const note = notes.getNote(title);
+    if (note) {
+      console.log('Note found');
+      console.log('===');
+      console.log(`Title: ${note.title}`);
+      console.log(`Body: ${note.body}`);
 
-  default:
+    } else {
+      console.log('Note not Found');
+    }
+    break;
+  }
+  case 'remove': {
+    const noteRemoved = notes.removeNote(title);
+    noteRemoved
+      ? console.log('Note Removed')
+      : console.log('failed to remove note');
+    break;
+  }
+  default: {
     console.log('not recognized');
     break;
+  }
 }
