@@ -4,43 +4,66 @@ const yargs = require('yargs');
 
 const notes = require('./notes');
 
-const argv = yargs.argv;
+const titleOptions = {
+  description: 'Title of note',
+  demand: true,
+  alias: 't'
+};
+
+const bodyOptions = {
+  description: 'Body of note',
+  demand: true,
+  alias: 'b'
+};
+
+const argv = yargs
+  .command('add', 'Add a new Note', {
+    title: titleOptions,
+    body: bodyOptions
+  })
+  .command('list', 'List all notes')
+  .command('remove', 'remove one notes', {
+    title: titleOptions
+  })
+  .command('read', 'Read one note', {
+    title: titleOptions
+  })
+  .help()
+  .argv;
 const { title, body } = argv;
 const [command] = argv._;
 
 console.log('>>yarg', argv);
 
+const logNote = note => {
+  if (note) {
+    console.log('===');
+    console.log(`Title: ${note.title}`);
+    console.log(`Body: ${note.body}`);
+  } else {
+    console.log(`Note is in use`);
+  }
+};
+
 switch (command) {
   case 'add': {
     const note = notes.addNote(title, body);
-    if (note) {
-      console.log('note created');
-      console.log('===');
-      console.log(`Title: ${title}`);
-      console.log(`Body: ${body}`);
-    } else {
-      console.log(`Note ${title} is in use`);
-    }
+    logNote(note);
 
     break;
   }
   case 'list': {
     const allNotes = notes.getAll();
     console.log(`>> All ${allNotes.length} Notes: `);
-    console.log(allNotes);
+    allNotes.forEach(note => {
+      logNote(note);
+    });
     break;
   }
   case 'read': {
     const note = notes.getNote(title);
-    if (note) {
-      console.log('Note found');
-      console.log('===');
-      console.log(`Title: ${note.title}`);
-      console.log(`Body: ${note.body}`);
-
-    } else {
-      console.log('Note not Found');
-    }
+    console.log('Note Found');
+    logNote(note);
     break;
   }
   case 'remove': {
