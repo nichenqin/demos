@@ -25,7 +25,9 @@ switch (command) {
     break;
   }
   case 'list': {
-    notes.getAll();
+    const allNotes = notes.getAll();
+    console.log(`>> All ${allNotes.length} Notes: `);
+    console.log(allNotes);
     break;
   }
   case 'read': {

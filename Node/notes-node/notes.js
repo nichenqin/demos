@@ -17,6 +17,7 @@ const saveNotes = notes => {
 };
 
 const addNote = (title, body) => {
+  debugger;
   const notes = fetchNotes();
   const note = { title, body };
 
@@ -30,7 +31,7 @@ const addNote = (title, body) => {
 };
 
 const getAll = () => {
-  console.log('>>getting all notes');
+  return fetchNotes();
 };
 
 const getNote = title => {
