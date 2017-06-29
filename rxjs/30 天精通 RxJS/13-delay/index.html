@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.1/Rx.min.js'></script>
+  <title>Document</title>
+  <style>
+    img {
+      position: absolute;
+      border-radius: 50%;
+      border: 3px white solid;
+      transform: translate3d(0, 0, 0);
+    }
+  </style>
+</head>
+
+<body>
+  <img src="https://res.cloudinary.com/dohtkyi84/image/upload/c_scale,w_50/v1483019072/head-cover6.jpg" alt="">
+  <img src="https://res.cloudinary.com/dohtkyi84/image/upload/c_scale,w_50/v1483019072/head-cover5.jpg" alt="">
+  <img src="https://res.cloudinary.com/dohtkyi84/image/upload/c_scale,w_50/v1483019072/head-cover4.jpg" alt="">
+  <img src="https://res.cloudinary.com/dohtkyi84/image/upload/c_scale,w_50/v1483019072/head-cover3.jpg" alt="">
+  <img src="https://res.cloudinary.com/dohtkyi84/image/upload/c_scale,w_50/v1483019072/head-cover2.jpg" alt="">
+  <img src="https://res.cloudinary.com/dohtkyi84/image/upload/c_scale,w_50/v1483019072/head-cover1.jpg" alt="">
+  <script>
+    const imgList = document.getElementsByTagName('img');
+
+    const movePos = Rx.Observable.fromEvent(document, 'mousemove')
+      .map(e => ({ x: e.clientX, y: e.clientY }));
+
+    function followMouse(DOMArr) {
+      const delayTime = 600;
+      DOMArr.forEach((item, index) => {
+        movePos
+          .delay(delayTime * (Math.pow(0.65, index) + Math.cos(index / 4)) / 2)
+          .subscribe(function (pos) {
+            item.style.transform = 'translate3d(' + pos.x + 'px, ' + pos.y + 'px, 0)';
+          });
+      });
+    }
+
+    followMouse(Array.from(imgList))
+  </script>
+</body>
+
+</html>
