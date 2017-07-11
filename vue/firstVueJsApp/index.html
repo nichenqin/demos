@@ -10,8 +10,11 @@
 
 <body>
   <div id="app">
+    <h1 v-once>{{title}}</h1>
     <input type="text" v-on:input="changeTitle">
-    <p>{{title}}</p>
+    <p>{{sayHello()}}</p>
+    <a v-bind:href="link">Google</a>
+    <p v-html="finishedLink"></p>
   </div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js'></script>
   <script src="./main.js"></script>
