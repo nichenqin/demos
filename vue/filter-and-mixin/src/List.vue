@@ -10,8 +10,11 @@
 </template>
 
 <script>
-import { fruitMixins } from './fruitMixins'
+import { fruitMixins } from './fruitMixins';
 export default {
-  mixins: [fruitMixins]
+  mixins: [fruitMixins],
+  created() {
+    console.log('List Created');
+  }
 }
 </script>

@@ -10,5 +10,8 @@ export const fruitMixins = {
     filteredFuits() {
       return this.fruits.filter(fruit => fruit.match(this.filterText))
     }
+  },
+  created() {
+    console.log('Created');
   }
 }
