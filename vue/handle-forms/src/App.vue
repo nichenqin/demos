@@ -54,9 +54,14 @@
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
           <label for="priority">Priority</label>
-          <select id="priority" class="form-control">
-            <option></option>
+          <select id="priority" class="form-control" v-model="selectedPriority">
+            <option v-for="priority in priorities" :key="priority">{{priority}}</option>
           </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+          <app-switch :value="dataSwitch" @switchOn="switchData"></app-switch>
         </div>
       </div>
       <hr>
@@ -86,8 +91,8 @@
               <li v-for="item in sendMail" :key="item">{{item}}</li>
             </ul>
             <p>Gender: {{gender}}</p>
-            <p>Priority:</p>
-            <p>Switched:</p>
+            <p>Priority: {{selectedPriority}}</p>
+            <p>Switched: {{dataSwitch}}</p>
           </div>
         </div>
       </div>
@@ -96,6 +101,7 @@
 </template>
 
 <script>
+import Switch from './Switch.vue';
 export default {
   data() {
     return {
@@ -106,7 +112,18 @@ export default {
       },
       message: 'test message',
       sendMail: [],
-      gender: 'Male'
+      gender: 'Male',
+      selectedPriority: 'High',
+      priorities: ['High', 'Mideum', 'Low'],
+      dataSwitch: true
+    }
+  },
+  components: {
+    appSwitch: Switch
+  },
+  methods: {
+    switchData(isOn) {
+      this.dataSwitch = isOn;
     }
   }
 }
