@@ -29,20 +29,37 @@
         <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter" @enter-cancelled="enterCancelled" @before-leave="beforeLeave" @leave="leave" @after-leave="afterLeave" @leave-cancelled="leaveCancelled" :css="false">
           <div style="width: 300px; height: 100px; background-color: lightgreen" v-if="load"></div>
         </transition>
+        <hr>
+        <br>
+        <br>
+        <button class="btn btn-success" @click="selectedAlert = 'success-alert'">Success Alert</button>
+        <button class="btn btn-danger" @click="selectedAlert = 'danger-alert'">Danger Alert</button>
+        <br>
+        <br>
+        <transition name="fade" mode="out-in">
+          <component :is="selectedAlert"></component>
+        </transition>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import dangerAlert from './DangerAlert.vue';
+import successAlert from './SuccessAlert.vue';
+
 export default {
   data() {
     return {
       show: false,
       load: true,
       alertAnimation: 'fade',
-      elementWidth: 300
+      elementWidth: 300,
+      selectedAlert: 'success-alert'
     }
+  },
+  components: {
+    dangerAlert, successAlert
   },
   methods: {
     beforeEnter(el) {
