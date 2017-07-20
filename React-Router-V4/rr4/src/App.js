@@ -1,43 +1,38 @@
 import React from "react";
 import {
   BrowserRouter as Router,
+  Switch,
   Route,
   Link,
-  Switch,
-  Redirect
+  Prompt
 } from "react-router-dom";
 
-const isLoggedIn = false;
+const Home = () => <h1>Home</h1>;
 
-const Links = () =>
-  <nav>
-    <Link to="/">Home</Link>
-    <Link to="/old/123">Old</Link>
-    <Link to="/new/345">New</Link>
-    <Link to="/protected">Protected</Link>
-  </nav>;
+const Form = class extends React.Component {
+  state = { isDirty: false };
+
+  handleInput = () => this.setState({ isDirty: true });
+
+  render() {
+    return (
+      <div>
+        <h1>Form</h1>
+        <input type="text" onInput={this.handleInput} />
+        <Prompt when={this.state.isDirty} message="message not saved yet" />
+      </div>
+    );
+  }
+};
 
 const App = () =>
   <Router>
     <div>
-      <Links />
+      <Link to="/">Home</Link>
+      <Link to="/form">Form</Link>
       <Switch>
-        <Route exact path="/" render={() => <h1>Home</h1>} />
-        <Route
-          path="/new/:num"
-          render={({ match }) =>
-            <h1>
-              New: {match.params.num}
-            </h1>}
-        />
-        <Route
-          path="/old/:num"
-          render={({ match }) => <Redirect to={`/new/${match.params.num}`} />}
-        />
-        <Route
-          path="/protected"
-          render={() => (isLoggedIn ? <h1>Welcom</h1> : <Redirect to="/" />)}
-        />
+        <Route exact path="/" component={Home} />
+        <Route path="/form" component={Form} />
       </Switch>
     </div>
   </Router>;
