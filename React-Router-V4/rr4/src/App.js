@@ -1,32 +1,44 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from "react-router-dom";
+
+const isLoggedIn = false;
 
 const Links = () =>
   <nav>
-    <Link to="?id=123">Inline</Link>
-    <Link to={{ pathName: "/", search: "id=456" }}>Object</Link>
+    <Link to="/">Home</Link>
+    <Link to="/old/123">Old</Link>
+    <Link to="/new/345">New</Link>
+    <Link to="/protected">Protected</Link>
   </nav>;
 
 const App = () =>
   <Router>
     <div>
       <Links />
-      <Route
-        path="/"
-        render={({ match, location }) =>
-          <div>
-            <p>Root</p>
-            <p>
-              location: {JSON.stringify(location)}
-            </p>
-            <p>
-              match: {JSON.stringify(match)}
-            </p>
-            <p>
-              {new URLSearchParams(location.search).get("id")}
-            </p>
-          </div>}
-      />
+      <Switch>
+        <Route exact path="/" render={() => <h1>Home</h1>} />
+        <Route
+          path="/new/:num"
+          render={({ match }) =>
+            <h1>
+              New: {match.params.num}
+            </h1>}
+        />
+        <Route
+          path="/old/:num"
+          render={({ match }) => <Redirect to={`/new/${match.params.num}`} />}
+        />
+        <Route
+          path="/protected"
+          render={() => (isLoggedIn ? <h1>Welcom</h1> : <Redirect to="/" />)}
+        />
+      </Switch>
     </div>
   </Router>;
 
