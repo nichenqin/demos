@@ -1,33 +1,32 @@
 import React from "react";
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
-
-import "./App.css";
-
-const isAcitiveFun = (match, loaction) => {
-  console.log(match);
-  return match;
-};
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Links = () =>
   <nav>
-    <NavLink exact activeClassName="active" to="/">
-      Home
-    </NavLink>
-    <NavLink activeStyle={{ color: "green" }} to="/about">
-      About
-    </NavLink>
-    <NavLink isActive={isAcitiveFun} activeClassName="active" to="/contact">
-      Contact
-    </NavLink>
+    <Link to="?id=123">Inline</Link>
+    <Link to={{ pathName: "/", search: "id=456" }}>Object</Link>
   </nav>;
 
 const App = () =>
   <Router>
     <div>
       <Links />
-      <Route exact path="/" render={() => <h1>Home</h1>} />
-      <Route path="/about" render={() => <h1>About</h1>} />
-      <Route path="/contact" render={() => <h1>Contact</h1>} />
+      <Route
+        path="/"
+        render={({ match, location }) =>
+          <div>
+            <p>Root</p>
+            <p>
+              location: {JSON.stringify(location)}
+            </p>
+            <p>
+              match: {JSON.stringify(match)}
+            </p>
+            <p>
+              {new URLSearchParams(location.search).get("id")}
+            </p>
+          </div>}
+      />
     </div>
   </Router>;
 
