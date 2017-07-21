@@ -11,7 +11,10 @@
 <body>
   <h1>Handlebars</h1>
   {{#each users as |user|}}
-  <li><a href="/{{user.name.full}}">{{user.name.full}}</a></li>
+  <li>
+    <img src="/profilepics/{{user.username}}_sm.jpg" alt="">
+    <a href="/{{user.username}}">{{user.name.full}}</a>
+  </li>
   {{/each}}
 </body>
 
