@@ -4,21 +4,20 @@ class GithubApiClient {
   async fetchUser(handle) {
     const url = `https://api.github.com/users/${handle}`;
     const response = await fetch(url);
-    const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
+    return await response.json();
   }
 }
 
-(async () => {
-  const client = new GithubApiClient();
-  try {
-    const user = await client.fetchUser("idono2222texist");
-    console.log(user.name);
-    console.log(user.location);
-  } catch (err) {
-    console.error(`Error: ${err.message}`);
-  }
-})();
+const client = new GithubApiClient();
+
+async function showUserAndRepos(handle) {
+  const [user, repos] = await Promise.all([
+    client.fetchUser(handle),
+    client.fetchUser(`${handle}/repos`)
+  ]);
+
+  console.log(user.name);
+  console.log(repos.length);
+}
+
+showUserAndRepos("nichenqin1001");
