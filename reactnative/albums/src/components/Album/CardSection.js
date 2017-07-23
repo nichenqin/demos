@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 
-const Card = ({ children }) => {
+const CardSection = ({ children }) => {
   const { container } = styles;
   return (
     <View style={container}>
@@ -12,15 +12,14 @@ const Card = ({ children }) => {
 
 const styles = {
   container: {
-    borderWidth: 1,
-    borderRadius: 2,
+    borderBottomWidth: 1,
+    padding: 5,
+    backgroundColor: "#fff",
+    justifyContent: "flex-start",
+    flexDirection: "row",
     borderColor: "#ddd",
-    borderBottomWidth: 0,
-    elevation: 0,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10
+    position: "relative"
   }
 };
 
-export default Card;
+export default CardSection;
