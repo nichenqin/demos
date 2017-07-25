@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const template = data => `
+      <p>name: ${data.name}</p>
+      <p>age: ${data.profile.age}</p>
+      <ul>
+        ${data.skills.map(skill => `
+          <li>${skill}</li>
+        `).join('')}
+      </ul>`
+
+    const data = {
+      name: 'zhaomenghuan',
+      profile: { age: 24 },
+      skills: ['html5', 'javascript', 'android']
+    }
+
+    console.dir(template);
+
+    document.body.innerHTML = template(data)
+  </script>
+</body>
+
+</html>
