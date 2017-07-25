@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="content"></div>
+  <template id="template">
+    <p>Name: {{name}}</p>
+    <p>Age: {{age}}</p>
+  </template>
+  <script>
+    function comp(tpl, data) {
+      var re = /{{(.+?)}}/g;
+      while ((match = re.exec(tpl)) !== null) {
+        tpl = tpl.replace(match[0], match[1] ? data[match[1]] : '');
+      }
+      return tpl;
+    }
+
+    var tpl = document.querySelector('#template').innerHTML;
+    var content = document.querySelector('.content');
+    var data = {
+      name: 'nichenqin',
+      age: 28
+    }
+    content.innerHTML = comp(tpl, data)
+  </script>
+</body>
+
+</html>

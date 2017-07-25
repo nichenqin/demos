@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="content"></div>
+  <template id="template">
+    <p>Name: nichenqin</p>
+    <p>Age: 28</p>
+  </template>
+  <script>
+    const tpl = document.querySelector('#template');
+    const content = document.querySelector('.content');
+    const clone = document.importNode(tpl.content, true);
+    console.log(clone);
+    content.appendChild(clone);
+  </script>
+</body>
+
+</html>
