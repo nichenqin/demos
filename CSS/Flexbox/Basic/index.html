@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="" href="../base.css">
+  <link rel="stylesheet" type="" href="../main.css">
+  <style>
+    * {
+      box-sizing: border-box
+    }
+
+    .container {
+      display: flex;
+      border: 1px solid #fff;
+      width: 500px;
+    }
+
+    .container div {
+      width: 100px;
+      flex-grow: 1;
+      margin: 0;
+    }
+
+    .container div:nth-child(1) {
+      flex-grow: 2;
+    }
+  </style>
+  <title>Basic</title>
+</head>
+
+<body>
+  <section class="container">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+    <div>Item 4</div>
+  </section>
+</body>
+
+</html>
