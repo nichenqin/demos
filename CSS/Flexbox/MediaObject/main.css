@@ -1,0 +1,14 @@
+.media {
+  display: flex;
+  flex-flow: row wrap;
+  border: 1px solid #fff;
+}
+
+.figure {
+  align-self: flex-start;
+  flex: 0 1 auto;
+}
+
+.media-body {
+  flex: 1 1 70%;
+}
