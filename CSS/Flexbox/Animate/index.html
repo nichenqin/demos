@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      transition: all .5s;
+    }
+
+    .container {
+      width: 500px;
+      height: 500px;
+      background-color: yellowgreen;
+      display: flex;
+    }
+
+    .left {
+      flex: 1;
+      min-height: 100px;
+      background-color: red;
+      align-self: flex-start;
+    }
+
+    .strench {
+      min-height: 100%;
+    }
+
+    .right {
+      flex: 2;
+      background-color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="left"></div>
+    <div class="right"></div>
+  </div>
+  <button class="add">Add</button>
+  <button class="remove">Remove</button>
+  <script>
+    const left = document.querySelector('.left');
+    const add = document.querySelector('.add');
+    const remove = document.querySelector('.remove');
+    add.addEventListener('click', function () {
+      left.classList.add('strench');
+    })
+    remove.addEventListener('click', function () {
+      left.classList.remove('strench');
+    })
+  </script>
+</body>
+
+</html>
