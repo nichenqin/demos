@@ -20,9 +20,9 @@
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
         {{#each todos as |todo|}}
-        <li>
+        <li {{#if todo.done}} class="completed" {{/if}}>
           <div class="view">
-            <input class="toggle" type="checkbox">
+            <input class="toggle" type="checkbox" {{#if todo.done}} checked {{/if}}>
             <label>{{todo.content}}</label>
             <button class="destroy"></button>
           </div>

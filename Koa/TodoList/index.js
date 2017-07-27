@@ -6,7 +6,7 @@ const app = new Koa();
 const router = new Router();
 
 const todos = [
-  { id: 1, content: "todo1", done: false },
+  { id: 1, content: "todo1", done: true },
   { id: 2, content: "todo2", done: false },
   { id: 3, content: "todo3", done: false }
 ];
