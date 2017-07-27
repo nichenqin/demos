@@ -5,14 +5,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://rawgit.com/tastejs/todomvc-app-css/master/index.css">
   <title>Document</title>
 </head>
 
 <body>
-  <h1>ToDo List</h1>
-  {{#each todos as |todo|}}
-  <p>{{todo.content}}</p>
-  {{/each}}
+  <section class="todoapp">
+    <header class="header">
+      <h1>Koa Todo</h1>
+      <input class="new-todo" placeholder="Koa template" autofocus>
+    </header>
+    <section class="main">
+      <input id="toggle-all" class="toggle-all" type="checkbox">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul class="todo-list">
+        {{#each todos as |todo|}}
+        <li>
+          <div class="view">
+            <input class="toggle" type="checkbox">
+            <label>{{todo.content}}</label>
+            <button class="destroy"></button>
+          </div>
+          <input class="edit" value="Create a TodoMVC template">
+        </li>
+        {{/each}}
+      </ul>
+    </section>
+  </section>
 </body>
 
 </html>
