@@ -5,6 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    a,
+    a:active {
+      color: #333;
+    }
+
+    .completed a {
+      color: #d9d9d9;
+    }
+  </style>
   <link rel="stylesheet" href="https://rawgit.com/tastejs/todomvc-app-css/master/index.css">
   <title>Document</title>
 </head>
@@ -57,14 +67,12 @@
         url: `${ROOT}?id=${id}`,
         method: 'delete',
         success: function () {
-          location.reload();
+          todoItem.empty();
         }
       })
     }
 
-    $form.on('submit', createTodo);
-    $deleteBtn.on('click', deleteTodo);
-    $checkBox.on('click', function () {
+    function toggleDone() {
       const $this = $(this);
       const todoItem = $this.parents('.todo-item');
       const id = todoItem.attr('data-id');
@@ -72,11 +80,20 @@
       $.ajax({
         url: `${ROOT}?id=${id}&done=${checked}`,
         method: 'put',
-        success: function () {
-          location.reload()
+        success: function (todo) {
+          if (todo.done) {
+            todoItem.addClass('completed');
+          } else {
+            todoItem.removeClass('completed');
+          }
+          $this.attr('checked', todo.done);
         }
       })
-    })
+    }
+
+    $form.on('submit', createTodo);
+    $deleteBtn.on('click', deleteTodo);
+    $checkBox.on('click', toggleDone);
   </script>
 </body>
 

@@ -42,7 +42,9 @@ router
   .delete("/", ctx => {
     const { id } = ctx.query;
     const index = todos.indexOf(todos.find(item => item.id === +id));
-    todos.splice(index, 1);
+    if (index !== -1) {
+      todos.splice(index, 1);
+    }
     ctx.body = todos;
   });
 
