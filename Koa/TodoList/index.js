@@ -31,6 +31,14 @@ router
     });
     ctx.body = todos;
   })
+  .put("/", ctx => {
+    const { id, done } = ctx.query;
+    const todo = todos.find(item => item.id === +id);
+    if (!!todo) {
+      todo.done = done === "true";
+    }
+    ctx.body = todo;
+  })
   .delete("/", ctx => {
     const { id } = ctx.query;
     const index = todos.indexOf(todos.find(item => item.id === +id));
