@@ -1,0 +1,8 @@
+<li class="todo-item {{#if todo.done}} completed {{/if}}" data-id={{todo.id}}>
+  <div class="view">
+    <input class="toggle" type="checkbox" {{#if todo.done}} checked {{/if}}>
+    <label><a href="http://localhost:5000/{{todo.id}}">{{todo.content}}</a></label>
+    <button class="destroy "></button>
+  </div>
+  <input class="edit " value="Create a TodoMVC template ">
+</li>

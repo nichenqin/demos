@@ -20,16 +20,17 @@ router
   .get("/:id", async ctx => {
     const { id } = ctx.params;
     const todo = todos.find(item => item.id === +id);
-    await ctx.render("todo", { todo });
+    await ctx.render("todoDetail", { todo });
   })
   .post("/", async ctx => {
-    const { id, content, done } = ctx.query;
-    todos.push({
-      id: id || Date.now(),
+    const { content } = ctx.query;
+    const newTodoItem = {
+      id: Date.now(),
       content,
-      done: done || false
-    });
-    ctx.body = todos;
+      done: false
+    };
+    todos.push(newTodoItem);
+    await ctx.render("todoItem", { todo: newTodoItem });
   })
   .put("/", ctx => {
     const { id, done } = ctx.query;

@@ -50,12 +50,14 @@
     const $input = $('.new-todo');
     const $deleteBtn = $('.todo-item .destroy');
     const $checkBox = $('.toggle');
+    const $todoList = $('.todo-list');
     const ROOT = 'http://localhost:5000/'
 
     function createTodo(e) {
       e.preventDefault();
-      $.post(`${ROOT}?content=${$input.val()}`, function (todos) {
-        location.reload();
+      $.post(`${ROOT}?content=${$input.val()}`, function (newTodoItem) {
+        $input.val('');
+        $todoList.append(newTodoItem);
       })
     }
 
