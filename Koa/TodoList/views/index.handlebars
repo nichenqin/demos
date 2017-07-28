@@ -13,25 +13,57 @@
   <section class="todoapp">
     <header class="header">
       <h1>Koa Todo</h1>
-      <input class="new-todo" placeholder="Koa template" autofocus>
+      <form action="">
+        <input class="new-todo" name="content" placeholder="Koa Todo List" autofocus>
+      </form>
     </header>
     <section class="main">
       <input id="toggle-all" class="toggle-all" type="checkbox">
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
         {{#each todos as |todo|}}
-        <li {{#if todo.done}} class="completed" {{/if}}>
+        <li class="todo-item {{#if todo.done}} completed {{/if}}" data-id={{todo.id}}>
           <div class="view">
-            <input class="toggle" type="checkbox" {{#if todo.done}} checked {{/if}}>
+            <input class="toggle " type="checkbox " {{#if todo.done}} checked {{/if}}>
             <label>{{todo.content}}</label>
-            <button class="destroy"></button>
+            <button class="destroy "></button>
           </div>
-          <input class="edit" value="Create a TodoMVC template">
+          <input class="edit " value="Create a TodoMVC template ">
         </li>
         {{/each}}
       </ul>
     </section>
   </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+  <script>
+    const $form = $('form');
+    const $input = $('.new-todo');
+    const $deleteBtn = $('.todo-item .destroy');
+    const ROOT = 'http://localhost:5000/'
+
+    function createTodo(e) {
+      e.preventDefault();
+      $.post(`${ROOT}?content=${$input.val()}`, function (todos) {
+        location.reload();
+      })
+    }
+
+    function deleteTodo() {
+      const $this = $(this);
+      const todoItem = $this.parents('.todo-item');
+      const id = todoItem.attr('data-id');
+      $.ajax({
+        url: `${ROOT}?id=${id}`,
+        method: 'delete',
+        success: function () {
+          location.reload();
+        }
+      })
+    }
+
+    $form.on('submit', createTodo);
+    $deleteBtn.on('click', deleteTodo);
+  </script>
 </body>
 
 </html>

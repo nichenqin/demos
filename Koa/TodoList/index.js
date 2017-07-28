@@ -20,25 +20,26 @@ router
   .get("/:id", async ctx => {
     const { id } = ctx.params;
     const todo = todos.find(item => item.id === +id);
-    console.log(todo);
     await ctx.render("todo", { todo });
   })
-  .post("/", async (ctx, next) => {
+  .post("/", async ctx => {
     const { id, content, done } = ctx.query;
     todos.push({
       id: id || Date.now(),
       content,
       done: done || false
     });
-    await next();
-    ctx.redirect("/");
+    ctx.body = todos;
   })
-  .delete("/:id", ctx => {
-    console.log(ctx.params);
+  .delete("/", ctx => {
+    const { id } = ctx.query;
+    const index = todos.indexOf(todos.find(item => item.id === +id));
+    todos.splice(index, 1);
+    ctx.body = todos;
   });
 
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(5000, () => {
-  console.log("App runs");
+  console.log("App runs at http://localhost:5000");
 });
