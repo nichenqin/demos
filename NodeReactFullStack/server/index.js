@@ -6,6 +6,7 @@ const { mongoDBURI, cookieKey } = require("./config/keys");
 require("./models/User");
 require("./service/passport");
 
+mongoose.Promise = global.Promise;
 mongoose.connect(mongoDBURI, {
   useMongoClient: true
 });
