@@ -2,7 +2,7 @@ const mongoogse = require("mongoose");
 const { Schema } = mongoogse;
 
 const userSchema = new Schema({
-  googleId: String,
+  googleID: String,
   githubID: String
 });
 

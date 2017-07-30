@@ -23,11 +23,11 @@ passport.use(
       callbackURL: "/auth/google/callback"
     },
     async (accessToken, refreshToken, profile, done) => {
-      const user = await User.findOne({ googleId: profile.id });
+      const user = await User.findOne({ googleID: profile.id });
       if (!!user) {
         done(null, user);
       } else {
-        const user = await new User({ googleId: profile.id }).save();
+        const user = await new User({ googleID: profile.id }).save();
         done(null, user);
       }
     }
@@ -39,7 +39,8 @@ passport.use(
     {
       clientID: keys.githubClientID,
       clientSecret: keys.githubClientSecret,
-      callbackURL: "/auth/github/callback"
+      callbackURL: "/auth/github/callback",
+      proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
       const user = await User.findOne({ githubID: profile.id });
