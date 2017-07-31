@@ -17,6 +17,7 @@
     "koa": "^2.3.0",
     "koa-router": "^7.2.1",
     "koa-views": "^6.0.2",
+    "mongoose": "^4.11.5",
     "todomvc-app-css": "^2.1.0"
   }
 }
