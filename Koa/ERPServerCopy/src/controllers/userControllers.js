@@ -7,8 +7,16 @@ const userControllers = {
   },
 
   createUser: async (ctx, next) => {
-    console.log(ctx.request.body);
-    await next();
+    const { name, age } = ctx.request.body;
+    const existingUser = await User.findOne({
+      where: { name }
+    });
+    if (!!existingUser) throw new Error("该用户已存在");
+    const newUser = await User.create({
+      name,
+      age
+    });
+    ctx.body = { newUser };
   }
 };
 
