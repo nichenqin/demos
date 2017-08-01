@@ -4,18 +4,13 @@ const bodyParser = require("koa-bodyparser");
 const sequelize = require("./db");
 const errorHandle = require("./middleware/errorHandle");
 
-const User = require("./models/user");
+const { initSuperUser } = require("./server/user");
 
 (async () => {
   try {
     await sequelize.sync({});
     console.log("connected to the database");
-    const user = await User.findOne();
-    if (user) return;
-    await User.create({
-      name: "nichenqin",
-      age: 28
-    });
+    await initSuperUser();
     console.log("created user");
   } catch (error) {
     console.error(error);

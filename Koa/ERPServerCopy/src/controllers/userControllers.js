@@ -1,12 +1,12 @@
 const User = require("../models/user");
 
 const userControllers = {
-  getAll: async (ctx, next) => {
+  getAll: async ctx => {
     const users = await User.findAll();
     ctx.body = { users };
   },
 
-  createUser: async (ctx, next) => {
+  createUser: async ctx => {
     const { name, age } = ctx.request.body;
     const existingUser = await User.findOne({
       where: { name }
