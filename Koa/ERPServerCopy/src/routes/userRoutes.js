@@ -7,5 +7,7 @@ module.exports = router => {
 
   router.get("/user", userControllers.getAll);
 
-  router.post("/user", userControllers.createUser);
+  router.post("/user/new", userControllers.createUser);
+
+  router.post("/user/login", userControllers.loginUser);
 };

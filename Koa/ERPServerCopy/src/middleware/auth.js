@@ -5,7 +5,8 @@ module.exports = () => async (ctx, next) => {
   const token = ctx.header.Authorization || ctx.header.authorization;
   if (!token) throw new AuthError();
 
-  const existingUser = await User.findOne({ token });
+  const existingUser = await User.findOne({ where: { token } });
+  console.log(existingUser);
   if (!existingUser) throw new AuthError();
 
   ctx.user = existingUser;
