@@ -11,7 +11,6 @@ const { initSuperUser } = require("./server/user");
     await sequelize.sync({});
     console.log("connected to the database");
     await initSuperUser();
-    console.log("created user");
   } catch (error) {
     console.error(error);
   }
