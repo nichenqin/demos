@@ -10,4 +10,6 @@ module.exports = router => {
   router.post("/user/new", userControllers.createUser);
 
   router.post("/user/login", userControllers.loginUser);
+
+  router.delete("/user/:id", userControllers.removeUser);
 };

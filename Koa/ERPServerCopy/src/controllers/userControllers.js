@@ -1,7 +1,11 @@
 const User = require("../models/user");
 const sha1 = require("sha1");
 const { randomToken } = require("../server/user");
-const { ForbiddenError } = require("../class/expections");
+const {
+  AuthError,
+  ForbiddenError,
+  NotFoundError
+} = require("../class/expections");
 
 const userControllers = {
   getAll: async ctx => {
@@ -32,6 +36,17 @@ const userControllers = {
     if (!user) throw new ForbiddenError("帐号或密码错误");
 
     ctx.body = { user };
+  },
+
+  removeUser: async ctx => {
+    const { id } = ctx.params;
+    const user = await User.findOne({ where: { id } });
+    if (!user) throw new NotFoundError(`用户id为${id}的用户`);
+    if (ctx.user.name !== "nichenqin") throw new AuthError();
+
+    await user.destroy();
+
+    ctx.body = { msg: "删除成功" };
   }
 };
 
