@@ -14,17 +14,18 @@ const userControllers = {
   },
 
   createUser: async ctx => {
-    const { name, password } = ctx.request.body;
+    const { name, password, type } = ctx.request.body;
     const existingUser = await User.findOne({
       where: { name }
     });
     if (!!existingUser) throw new Error("该用户已存在");
     const newUser = await User.create({
       name,
+      type,
       passwordHash: sha1(password),
       token: randomToken()
     });
-    ctx.body = { newUser };
+    ctx.body = { user: newUser };
   },
 
   loginUser: async ctx => {
@@ -38,9 +39,25 @@ const userControllers = {
     ctx.body = { user };
   },
 
+  editUser: async ctx => {
+    const { id } = ctx.params;
+    const { body } = ctx.request;
+
+    const user = await User.findOne({ where: { id } });
+    if (!user) throw new NotFoundError(`用户id为${id}的用户`);
+
+    console.log(ctx.user);
+    if (ctx.user.type !== "超级管理员") throw new ForbiddenError("不是超级管理员");
+
+    Object.assign(user, body);
+    await user.save();
+    ctx.body = { user };
+  },
+
   removeUser: async ctx => {
     const { id } = ctx.params;
     const user = await User.findOne({ where: { id } });
+
     if (!user) throw new NotFoundError(`用户id为${id}的用户`);
     if (ctx.user.name !== "nichenqin") throw new AuthError();
 

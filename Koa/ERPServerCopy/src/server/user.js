@@ -16,6 +16,7 @@ const initSuperUser = async ({ password = "password" } = {}) => {
 
   await User.create({
     name: "nichenqin",
+    type: "超级管理员",
     passwordHash: sha1(password),
     token: randomToken()
   });

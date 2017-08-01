@@ -11,5 +11,7 @@ module.exports = router => {
 
   router.post("/user/login", userControllers.loginUser);
 
+  router.post("/user/:id", userControllers.editUser);
+
   router.delete("/user/:id", userControllers.removeUser);
 };
