@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const sha1 = require("sha1");
+const { randomToken } = require("../server/user");
 
 const userControllers = {
   getAll: async ctx => {
@@ -7,14 +9,15 @@ const userControllers = {
   },
 
   createUser: async ctx => {
-    const { name, age } = ctx.request.body;
+    const { name, password } = ctx.request.body;
     const existingUser = await User.findOne({
       where: { name }
     });
     if (!!existingUser) throw new Error("该用户已存在");
     const newUser = await User.create({
       name,
-      age
+      passwordHash: sha1(password),
+      token: randomToken()
     });
     ctx.body = { newUser };
   }

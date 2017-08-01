@@ -23,4 +23,4 @@ const initSuperUser = async ({ password = "password" } = {}) => {
   console.log("super user nichenqin created");
 };
 
-module.exports = { initSuperUser };
+module.exports = { initSuperUser, randomToken };
