@@ -84,6 +84,8 @@ module.exports = router => {
    *           properties:
    *             type:
    *               type: string
+   *             avatar:
+   *               type: string
    */
   router.post("/user/:id", userControllers.editUser);
 

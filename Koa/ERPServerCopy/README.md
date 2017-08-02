@@ -19,5 +19,6 @@ run on <http://localhost:5001>
 
 ## TODO
 
-- [ ] swagger docs
+- [x] swagger docs
+- [ ] swagger html
 - [ ] diff envs
