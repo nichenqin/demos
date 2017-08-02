@@ -1,5 +1,6 @@
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
+const server = require("koa-static");
 const sequelize = require("./db");
 const errorHandle = require("./middleware/errorHandle");
 const router = require("./routes");
@@ -19,6 +20,7 @@ const { initSuperUser } = require("./server/user");
 const app = new Koa();
 
 app
+  .use(server("."))
   .use(bodyParser())
   .use(errorHandle())
   .use(router.routes())
