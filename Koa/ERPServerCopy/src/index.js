@@ -1,7 +1,9 @@
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const server = require("koa-static");
+const cors = require("koa-cors");
 const sequelize = require("./db");
+
 const errorHandle = require("./middleware/errorHandle");
 const router = require("./routes");
 
@@ -21,6 +23,7 @@ const app = new Koa();
 
 app
   .use(server("."))
+  .use(cors())
   .use(bodyParser())
   .use(errorHandle())
   .use(router.routes())

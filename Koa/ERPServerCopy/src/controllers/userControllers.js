@@ -9,6 +9,7 @@ const {
 
 const userControllers = {
   getAll: async ctx => {
+    console.log(ctx.header);
     const users = await User.findAll();
     ctx.body = { users };
   },
@@ -59,7 +60,7 @@ const userControllers = {
     const user = await User.findOne({ where: { id } });
 
     if (!user) throw new NotFoundError(`用户id为${id}的用户`);
-    if (ctx.user.name !== "nichenqin") throw new AuthError();
+    if (ctx.user.type !== "超级管理员") throw new AuthError();
 
     await user.destroy();
 

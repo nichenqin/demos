@@ -9,6 +9,9 @@ module.exports = router => {
  * @swagger
  * /user:
  *   get:
+ *     summary: get all users
+ *     tags: 
+ *       - User
  *     description: Returns all users
  *     responses:
  *       200:
@@ -17,30 +20,29 @@ module.exports = router => {
   router.get("/user", userControllers.getAll);
 
   /**
-   * @swagger
-   * /user/new:
-   *   post:
-   *     description: create new user
-   *     parameters:
-   *       - name: user
-   *         description: User object
-   *         in: body
-   *         required: true
-   *         schema:
-   *           type: object
-   *           properties:
-   *             name:
-   *               type: string
-   *             password:
-   *               type: string
-   *               default: 'password'
-   *             type:
-   *               type: string
-   *               default: '一般用户'
-   *             avatar:
-   *               type: string
-   *               default: 'localhost:5001/images/user/default.jpg'
-   */
+ * @swagger
+ * /user/register:
+ *   post:
+ *     summary: create new user
+ *     tags:
+ *       - User
+ *     parameters:
+ *       - name: user
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *               default: 用户名
+ *             password:
+ *               type: string
+ *               default: 密码
+ *             type:
+ *               type: string
+ *               default: 账户类型
+ */
   router.post("/user/new", userControllers.createUser);
 
   /**
@@ -53,6 +55,7 @@ module.exports = router => {
    *         description: User object
    *         in: body
    *         required: true
+   *         type: object
    *         schema:
    *           type: object
    *           properties:
@@ -60,6 +63,7 @@ module.exports = router => {
    *               type: string
    *               required: true
    *             password:
+   *               type: string
    *               required: true
    */
   router.post("/user/login", userControllers.loginUser);
@@ -79,6 +83,7 @@ module.exports = router => {
    *         description: User object
    *         in: body
    *         required: true
+   *         type: object
    *         schema:
    *           type: object
    *           properties:

@@ -6,7 +6,14 @@ const swaggerControllers = {
     { title = "ERP", version = "1.0.0", description = "erp" } = {}
   ) => async ctx => {
     const swaggerDefinition = {
-      info: { title, version, description }
+      info: { title, version, description },
+      securityDefinitions: {
+        api_key: {
+          type: "apiKey",
+          in: "header",
+          name: "Authorization"
+        }
+      }
     };
     const option = {
       swaggerDefinition,
