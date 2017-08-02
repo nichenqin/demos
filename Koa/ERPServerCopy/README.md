@@ -11,7 +11,13 @@ npm start
 
 run on <http://localhost:5001>
 
-## TODO:
+## 文档
+
+### JSON
+
+<http://localhost:5001/swagger-json>
+
+## TODO
 
 - [ ] swagger docs
-- [ ] 
+- [ ] diff envs
