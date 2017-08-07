@@ -3,6 +3,7 @@
     <h3>You may view the User Details here</h3>
     <p>Many Details</p>
     <p>Age: {{userAge}}</p>
+    <p>random</p>
   </div>
 </template>
 
