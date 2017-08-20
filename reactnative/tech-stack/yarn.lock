@@ -2287,6 +2287,10 @@ hoist-non-react-statics@^1.0.3:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/hoist-non-react-statics/download/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
+hoist-non-react-statics@^2.2.1:
+  version "2.3.0"
+  resolved "http://registry.npm.taobao.org/hoist-non-react-statics/download/hoist-non-react-statics-2.3.0.tgz#ede16318c2ff1f9fe3a025396ba06fd4c44608bb"
+
 home-dir@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/home-dir/download/home-dir-1.0.0.tgz#2917eb44bdc9072ceda942579543847e3017fe4e"
@@ -4082,6 +4086,17 @@ react-redux@^5.0.2:
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
 
+react-redux@^5.0.6:
+  version "5.0.6"
+  resolved "http://registry.npm.taobao.org/react-redux/download/react-redux-5.0.6.tgz#23ed3a4f986359d68b5212eaaa681e60d6574946"
+  dependencies:
+    hoist-non-react-statics "^2.2.1"
+    invariant "^2.0.0"
+    lodash "^4.2.0"
+    lodash-es "^4.2.0"
+    loose-envify "^1.1.0"
+    prop-types "^15.5.10"
+
 react-test-renderer@16.0.0-alpha.12:
   version "16.0.0-alpha.12"
   resolved "http://registry.npm.taobao.org/react-test-renderer/download/react-test-renderer-16.0.0-alpha.12.tgz#9e4cc5d8ce8bfca72778340de3e1454b9d6c0cc5"
@@ -4162,7 +4177,7 @@ redux-logger@^2.7.4:
   dependencies:
     deep-diff "0.3.4"
 
-redux@^3.6.0:
+redux@^3.6.0, redux@^3.7.2:
   version "3.7.2"
   resolved "http://registry.npm.taobao.org/redux/download/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
@@ -5079,7 +5094,7 @@ webidl-conversions@^4.0.0:
   version "4.0.1"
   resolved "http://registry.npm.taobao.org/webidl-conversions/download/webidl-conversions-4.0.1.tgz#8015a17ab83e7e1b311638486ace81da6ce206a0"
 
-"websql@github:expo/node-websql#18.0.0":
+websql@expo/node-websql#18.0.0:
   version "0.4.4"
   resolved "https://codeload.github.com/expo/node-websql/tar.gz/e364fa65146a9e2157a19e5c719e7702c2b6b87a"
   dependencies:
