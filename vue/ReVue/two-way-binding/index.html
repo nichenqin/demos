@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" id="input" v-model="msg">
+    <span>{{ msg }}</span>
+  </div>
+
+  <script>
+    function compile(node) {
+      const reg = /\{\{(.*)\}\}/;
+
+      if (node.nodeType === 1) {
+        const attributes = Array.from(node.attributes).filter(({ nodeName }) => nodeName === 'v-model');
+        attributes.forEach(({ nodeValue }) => {
+          node.addEventListener('input', e => {
+            this[nodeValue] = e.target.value;
+          })
+          node.value = this.data[nodeValue];
+          node.removeAttribute('v-model');
+        });
+        Array.from(node.childNodes).forEach(child => {
+          compile.call(this, child);
+        });
+      }
+
+      if (node.nodeType === 3) {
+        if (reg.test(node.nodeValue)) {
+          const name = RegExp.$1.trim();
+          node.nodeValue = this[name];
+        }
+        return;
+      }
+    }
+
+    function nodeToFragment(node) {
+      const fragment = document.createDocumentFragment();
+      let child;
+      while (child = node.firstChild) {
+        compile.call(this, child);
+        fragment.appendChild(child);
+      }
+      return fragment;
+    }
+
+    function defineObject(obj, key, value) {
+      Object.defineProperty(obj, key, {
+        get() {
+          return value;
+        },
+        set(newValue) {
+          if (newValue === value) return;
+          value = newValue;
+        },
+      });
+    }
+
+    function observer(obj) {
+      Object.keys(obj).forEach(key => {
+        defineObject(this, key, obj[key]);
+      })
+    }
+
+    function Vue(option) {
+      this.data = option.data;
+
+      observer.call(this, this.data);
+
+      this.el = typeof option.el === 'string' ? document.querySelector(option.el) : option.el;
+      this.fragment = nodeToFragment.call(this, this.el);
+      this.init();
+    }
+
+    Vue.prototype.init = function () {
+      this.el.appendChild(this.fragment);
+    }
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'Hello World',
+      },
+    });
+  </script>
+</body>
+
+</html>

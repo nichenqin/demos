@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" id="input">
+    <span id="text"></span>  
+  </div>
+
+  <script>
+    const app = document.querySelector('#app');
+    function nodeToFragement(node){
+      const fragment = document.createDocumentFragment();
+      let child;
+      while (child = node.firstChild) {
+        fragment.appendChild(child);
+      }
+      return fragment;
+    }
+    const dom = nodeToFragement(app); // app中的所有元素进入fragment，从页面中被删除
+    app.appendChild(dom); // 重新获取在fragment中的节点
+  </script>
+</body>
+</html>

@@ -1,11 +1,10 @@
-const request = require("request");
+const axios = require("axios");
 
-request(
-  {
-    url: "http://139.224.16.98:3001/swagger-json",
-    json: true
-  },
-  (error, response, body) => {
-    console.log(JSON.stringify(body, undefined, 2));
-  }
-);
+axios
+  .get("https://maps.googleapis.com/maps/api/geocode/json?address=shanghai")
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => {
+    console.log(err);
+  });
