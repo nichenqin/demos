@@ -11,7 +11,12 @@
 <body>
   <div id="app">
     <input type="text" id="input" v-model="msg">
-    <span>{{ msg }}</span>
+    <div>{{ msg }}</div>
+    <div>{{ msg }}</div>
+    <br>
+    <br>
+    <input type="text" id="input2" v-model="text">
+    <div>{{ text }}</div>
   </div>
 
   <script>
@@ -36,6 +41,7 @@
         if (reg.test(node.nodeValue)) {
           const name = RegExp.$1.trim();
           node.nodeValue = this[name];
+          new Watcher(this, node, name);
         }
         return;
       }
@@ -52,13 +58,18 @@
     }
 
     function defineObject(obj, key, value) {
+      const dep = new Dep();
+
       Object.defineProperty(obj, key, {
         get() {
+          if (Dep.target) dep.addSub(Dep.target);
           return value;
         },
         set(newValue) {
           if (newValue === value) return;
           value = newValue;
+          console.log(dep);
+          dep.notify();
         },
       });
     }
@@ -69,24 +80,63 @@
       })
     }
 
-    function Vue(option) {
-      this.data = option.data;
+    class Dep {
+      constructor() {
+        this.subs = [];
+      }
 
-      observer.call(this, this.data);
+      addSub(sub) {
+        this.subs.push(sub);
+      }
 
-      this.el = typeof option.el === 'string' ? document.querySelector(option.el) : option.el;
-      this.fragment = nodeToFragment.call(this, this.el);
-      this.init();
+      notify() {
+        this.subs.forEach(sub => {
+          sub.update();
+        })
+      }
     }
 
-    Vue.prototype.init = function () {
-      this.el.appendChild(this.fragment);
+    class Watcher {
+      constructor(vm, node, name) {
+        Dep.target = this;
+        this.name = name;
+        this.node = node;
+        this.vm = vm
+        this.update();
+        Dep.target = null;
+      }
+
+      update() {
+        this.get();
+        this.node.nodeValue = this.value;
+      }
+
+      get() {
+        this.value = this.vm[this.name];
+      }
+    }
+
+    class Vue {
+      constructor(option) {
+        this.data = option.data;
+
+        observer.call(this, this.data);
+
+        this.el = typeof option.el === 'string' ? document.querySelector(option.el) : option.el;
+        this.fragment = nodeToFragment.call(this, this.el);
+        this.init();
+      }
+
+      init() {
+        this.el.appendChild(this.fragment);
+      }
     }
 
     const vm = new Vue({
       el: '#app',
       data: {
         msg: 'Hello World',
+        text: 'Hi There!',
       },
     });
   </script>
