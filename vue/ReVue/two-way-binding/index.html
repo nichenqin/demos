@@ -27,11 +27,12 @@
         const attributes = Array.from(node.attributes).filter(({ nodeName }) => nodeName === 'v-model');
         attributes.forEach(({ nodeValue }) => {
           node.addEventListener('input', e => {
-            this[nodeValue] = e.target.value;
+            Reflect.set(this, nodeValue, e.target.value);
           })
-          node.value = this.data[nodeValue];
+          node.value = Reflect.get(this.data, nodeValue);
           node.removeAttribute('v-model');
         });
+
         Array.from(node.childNodes).forEach(child => {
           compile.call(this, child);
         });
@@ -40,7 +41,6 @@
       if (node.nodeType === 3) {
         if (reg.test(node.nodeValue)) {
           const name = RegExp.$1.trim();
-          node.nodeValue = this[name];
           new Watcher(this, node, name);
         }
         return;
@@ -60,7 +60,7 @@
     function defineObject(obj, key, value) {
       const dep = new Dep();
 
-      Object.defineProperty(obj, key, {
+      Reflect.defineProperty(obj, key, {
         get() {
           if (Dep.target) dep.addSub(Dep.target);
           return value;
@@ -68,7 +68,6 @@
         set(newValue) {
           if (newValue === value) return;
           value = newValue;
-          console.log(dep);
           dep.notify();
         },
       });
@@ -76,7 +75,7 @@
 
     function observer(obj) {
       Object.keys(obj).forEach(key => {
-        defineObject(this, key, obj[key]);
+        defineObject(this, key, Reflect.get(obj, key));
       })
     }
 
@@ -99,20 +98,23 @@
     class Watcher {
       constructor(vm, node, name) {
         Dep.target = this;
+
         this.name = name;
         this.node = node;
         this.vm = vm
+
         this.update();
+
         Dep.target = null;
+      }
+
+      get() {
+        this.value = Reflect.get(this.vm, this.name);
       }
 
       update() {
         this.get();
         this.node.nodeValue = this.value;
-      }
-
-      get() {
-        this.value = this.vm[this.name];
       }
     }
 
@@ -124,6 +126,7 @@
 
         this.el = typeof option.el === 'string' ? document.querySelector(option.el) : option.el;
         this.fragment = nodeToFragment.call(this, this.el);
+
         this.init();
       }
 
@@ -139,6 +142,7 @@
         text: 'Hi There!',
       },
     });
+    console.log(vm);
   </script>
 </body>
 
