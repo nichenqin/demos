@@ -1,3 +1,5 @@
+import Observer from "./Observer";
+
 class Vue {
   constructor(option) {
     this.$data = option.data || {};
@@ -11,10 +13,12 @@ class Vue {
       methods: {},
       ...option
     };
+    this.$option = option;
 
     this._proxy(option);
 
-    this.$option = option;
+    const ob = new Observer(this.$data);
+    if (!ob) return;
   }
 
   _proxy(option) {

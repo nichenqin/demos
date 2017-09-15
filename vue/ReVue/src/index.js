@@ -10,5 +10,4 @@ const vm = new Vue({
     }
   }
 });
-console.log(vm);
-console.log(vm.msg);
+console.log("vm", vm);
