@@ -52,6 +52,11 @@ class Compiler {
     });
   }
 
+  bindWatcher(node, vm, exp, dir, prop) {
+    const updateFn = Reflect.get(updater, dir);
+    console.log("updateFn", updateFn);
+  }
+
   onHandler(node, vm, method, event) {
     if (!event) {
       return console.error("绑定方法有误");
@@ -63,6 +68,8 @@ class Compiler {
       node.addEventListener(event, new Function(method).bind(vm));
     }
   }
+
+  modelHandler(node, vm, exp, prop) {}
 
   bindHandler(node, vm, exp, prop) {}
 
@@ -103,6 +110,12 @@ const checkDirective = attrName => {
     return { type: "bind", prop: attrName.substring(1) };
   } else {
     return {};
+  }
+};
+
+const updater = {
+  attr(node, newValue = "", attrName) {
+    node.setAttribute(attrName, newValue);
   }
 };
 

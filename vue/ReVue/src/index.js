@@ -3,7 +3,7 @@ import Vue from "./Vue.js";
 const vm = new Vue({
   el: "#app",
   data: {
-    msg: "hello word",
+    msg: "hello world",
     number: 1001,
     obj: {
       key: "value"
