@@ -17,6 +17,7 @@ class Vue {
     this.$option = option;
 
     this._proxy(option);
+    this._proxyMethods(option.methods);
 
     const ob = new Observer(this.$data);
     if (!ob) return;
@@ -51,6 +52,12 @@ class Vue {
           }
         });
       });
+    });
+  }
+
+  _proxyMethods(methods) {
+    Object.keys(methods).forEach(method => {
+      Reflect.set(this, method, Reflect.get(this.$option.methods, method));
     });
   }
 }

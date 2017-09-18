@@ -9,6 +9,11 @@ const vm = new Vue({
       key: "value"
     },
     arr: [1, 2, 3]
+  },
+  methods: {
+    onClick() {
+      console.log("methods");
+    }
   }
 });
 console.log("vm", vm);
