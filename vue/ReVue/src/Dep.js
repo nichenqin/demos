@@ -10,7 +10,6 @@ class Dep {
   }
 
   notify(options) {
-    console.log("notify");
     for (var uid in this.subs) {
       Reflect.get(this.subs, uid).update(options);
     }

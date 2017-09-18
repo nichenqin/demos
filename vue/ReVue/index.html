@@ -9,7 +9,11 @@
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <div class="hello" v-if="hello" v-text="world" :world="msg" @click="onClick">
+      Hello World
+    </div>
+  </div>
 </body>
 
 </html>

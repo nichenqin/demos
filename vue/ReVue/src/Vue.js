@@ -1,4 +1,5 @@
 import Observer from "./Observer";
+import Compiler from "./Compiler";
 
 class Vue {
   constructor(option) {
@@ -19,6 +20,8 @@ class Vue {
 
     const ob = new Observer(this.$data);
     if (!ob) return;
+
+    new Compiler(this.$el || document.body, this);
   }
 
   _proxy(option) {
