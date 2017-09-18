@@ -52,11 +52,16 @@ class Compiler {
     });
   }
 
-  onHandler(node, vm, exp, event) {
+  onHandler(node, vm, method, event) {
     if (!event) {
       return console.error("绑定方法有误");
     }
-    console.log(exp);
+    const fn = Reflect.get(vm, method);
+    if (typeof fn === "function") {
+      node.addEventListener(event, fn.bind(vm));
+    } else {
+      node.addEventListener(event, new Function(method).bind(vm));
+    }
   }
 
   bindHandler(node, vm, exp, prop) {}

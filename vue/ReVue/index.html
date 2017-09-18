@@ -10,7 +10,7 @@
 
 <body>
   <div id="app">
-    <div class="hello" v-if="hello" v-text="world" :world="msg" @click="onClick">
+    <div class="hello" v-if="hello" v-text="world" v-bind:arr="arr" :world="msg" @click="console.log('method')">
       Hello World
     </div>
   </div>
