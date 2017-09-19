@@ -1,19 +1,32 @@
-class Dep {
+import Watcher from "./watcher";
+
+let uid = 0;
+
+export default class Dep {
+  static target;
+
   constructor() {
-    this.subs = {};
+    this.id = uid++;
+    this.subs = [];
   }
 
-  addSub(target) {
-    if (!Reflect.get(this.subs, target.uid)) {
-      Reflect.set(this.subs, target.uid, target);
+  addSub(sub) {
+    this.subs.push(sub);
+  }
+
+  removeSub(sub) {
+    let index = this.subs.indexOf(sub);
+    if (index != -1) {
+      this.subs.splice(index, 1);
     }
   }
 
-  notify(options) {
-    for (var uid in this.subs) {
-      Reflect.get(this.subs, uid).update(options);
-    }
+  depend() {
+    Dep.target.addDep(this);
+  }
+
+  notify() {
+    // 订阅者收到更新，然后通知订阅者watcher去更新视图
+    this.subs.forEach(sub => sub.update());
   }
 }
-
-export default Dep;

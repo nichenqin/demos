@@ -5,19 +5,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>双向绑定</title>
+  <style type="text/css">
+    .red {
+      color: red
+    }
+  </style>
 </head>
 
 <body>
+
+  <!--     <div id="app">
+        <input type="text" v-model="firstName">
+        <input type="text" v-model="htmlStr">
+        <p v-text="firstName"></p>
+        <p>
+            {{firstName}}{{array.length}}
+        </p>
+        <p v-html="htmlStr"></p>
+        <button v-on:click="clickBtn">改变数组内容</button>
+        <button v-on:click="addItem(firstName)">数组增加长度</button>
+        <ul>
+            <li v-for="item in array" class="list-item">{{item}}</li>
+        </ul>
+        <p>{{array.length}}</p>  
+    </div> -->
   <div id="app">
-    <div class="hello" v-if="hello" v-text="world" v-bind:arr="arr" :world="msg">
-      <div @click="onClick">Hello World</div>
-      <input type="text" v-model="msg">
-      <div v-show="show">v-show</div>
-      <button @click="toggle">toggle show</button>
-      <!-- <span>{{msg}}</span> -->
-    </div>
+    <p>
+      <h3>v-model</h3>
+      <input type="text" v-model="formodel"> {{formodel}}
+    </p>
+    <p>
+      <h3>v-text</h3>
+      <p v-text="fortext"></p>
+      {{fortext}}
+    </p>
+    <p>
+      <h3>v-html</h3>
+      <p v-html="forhtml"></p>
+      {{{forhtml}}}
+    </p>
+    <p>
+      <h3>v-on</h3>
+      <button v-on:click="changeclass">点击更换颜色</button>
+    </p>
+    <p>
+      <h3>v-class</h3>
+      <p v-class="red">我是v-绑定了red的标签文字</p>
+      <button v-on:click="changeclass">点击更换颜色</button>
+    </p>
+    <p>
+      <h3>v-for</h3>
+      <ul>
+        <li v-for="item in array">{{item}}</li>
+      </ul>
+    </p>
+    <button v-on:click="change">vue无法监听下标改变数组</button>
+    <button v-on:click="addItem('1111')">用push给数组增加长度</button>
+    <!--          <p>
+            <h3>v-for</h3>
+            <ul>
+                <li v-for="item in array">{{item}}</li>
+            </ul>
+        </p> -->
   </div>
 </body>
+<script>
+
+</script>
 
 </html>

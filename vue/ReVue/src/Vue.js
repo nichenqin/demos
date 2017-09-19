@@ -1,65 +1,36 @@
-import Observer from "./Observer";
-import Compiler from "./Compiler";
+import Watcher from "./watcher";
+import observer from "./observer";
+import Compiler from "./compiler";
 
-class Vue {
-  constructor(option) {
-    this.$data = option.data || {};
-    this.$el =
-      typeof option.el === "string"
-        ? document.querySelector(option.el)
-        : option.el;
-
-    option = {
-      computed: {},
-      methods: {},
-      ...option
-    };
-    this.$option = option;
-
-    this._proxy(option);
-    this._proxyMethods(option.methods);
-
-    const ob = new Observer(this.$data);
-    if (!ob) return;
-
-    new Compiler(this.$el || document.body, this);
-  }
-
-  _proxy(option) {
-    const proxyList = ["data", "computed"];
-    proxyList.forEach(proxy => {
-      Object.keys(Reflect.get(option, proxy)).forEach(key => {
-        Reflect.defineProperty(this, key, {
-          configurable: true,
-          enumerable: true,
-          get() {
-            if (typeof Reflect.get(this.$data, key) !== "undefined") {
-              return Reflect.get(this.$data, key);
-            } else if (
-              typeof Reflect.get(this.$option.computed, key) !== "undefined"
-            ) {
-              return Reflect.get(this.$option.computed, key);
-            } else {
-              return undefined;
-            }
-          },
-          set(newValue) {
-            if (this.$data.hasOwnProperty(key)) {
-              Reflect.set(this.$data, key, newValue);
-            } else if (this.$option.computed.hasOwnProperty(key)) {
-              Reflect.set(this.$option.computed, key, newValue);
-            }
-          }
-        });
-      });
+export default class Vue {
+  constructor(options) {
+    this.$options = options;
+    this._data = this.$options.data;
+    // 数据劫持(代理) vm.data.属性名称 => vm.属性名称 方便访问
+    Object.keys(this.$options.data).forEach(key => {
+      this._proxy(key);
     });
+    //监听数据，给数据添加dep主题对象，在数据改变时通知订阅了该属性的watcher
+    observer(this._data);
+    //编译结点，解析各种指令，并且将每个node节点对应一个watcher身份，在收到通知时改变自身view视图
+    this.$compiler = new Compiler(options.el || document.body, this);
   }
 
-  _proxyMethods(methods) {
-    Object.keys(methods).forEach(method => {
-      Reflect.set(this, method, Reflect.get(this.$option.methods, method));
+  $watch(expression, callback) {
+    new Watcher(this, expression, callback);
+  }
+
+  _proxy(key) {
+    let self = this;
+    Object.defineProperty(this, key, {
+      configurable: false,
+      enumerable: true,
+      get() {
+        return self._data[key];
+      },
+      set(value) {
+        self._data[key] = value;
+      }
     });
   }
 }
-
-export default Vue;

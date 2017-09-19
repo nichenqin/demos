@@ -1,27 +1,48 @@
 import Vue from "./Vue.js";
-
-const vm = new Vue({
+let vm = new Vue({
   el: "#app",
   data: {
-    msg: "hello world",
-    number: 1001,
-    obj: {
-      key: "value"
-    },
-    arr: [1, 2, 3],
-    show: false
+    formodel: "this is for v-model",
+    fortext: "this is for v-text",
+    forhtml: '<span style="color: #f00;">我是v-html指令的结果</span><span></spam>',
+    red: "red",
+    array: ["sdf", "sdfd"]
   },
   methods: {
-    onClick() {
-      console.log("on click method");
+    changeclass: function(e) {
+      var rand = Math.round(Math.random() * 1000000);
+      console.log(e.target.previousSibling.previousSibling);
+      e.target.style.backgroundColor = "#" + rand;
     },
-    toggle() {
-      this.show = !this.show;
+    addItem: function(value) {
+      this.array.push(value);
+      console.log(this.array);
+    },
+    change: function() {
+      this.array[0] = "vue无法监听到这次改变";
     }
   }
 });
-console.log("vm", vm);
+// console.log(rand)
+// let vm = new MVVM({
+//     el: '#app',
+//     data: {
+//         firstName: "hello ",
+//         htmlStr: '<span style="color: #f00;">我是v-html指令的结果</span><span></spam>',
+//         child: {
+//             lastName: ' World !'
+//         },
+//         array: ["sdf","sdfd"]
+//     },
+//     methods: {
+//         clickBtn: function (e) {
+//             this.array[0] = "dfsdf";
+//         },
+//         addItem: function (value) {
+//             this.array.push(value);
+//             console.log(this.array);
+//         }
+//     }
+// });
 
-vm.arr = ["array1", "array2"];
-
-vm.arr.push("array3");
+console.log(vm);
