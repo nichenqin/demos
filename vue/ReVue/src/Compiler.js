@@ -1,3 +1,5 @@
+import Watcher from "./Watcher";
+
 let $$id = 0;
 
 class Compiler {
@@ -15,9 +17,9 @@ class Compiler {
     const children = Array.from(node.childNodes);
     if (children && children.length) {
       children.forEach(child => {
-        if (child.nodeType === 3) {
+        if (isTextNode(child)) {
           this.compileTextNode(child, vm);
-        } else if (child.nodeType === 1) {
+        } else if (isElementNode(child)) {
           this.compileElementNode(child, vm);
         }
       });
@@ -33,28 +35,39 @@ class Compiler {
     const attrs = Array.from(node.attributes);
     let lazyCompileDir = "";
     let lazyCompileExp = "";
-    attrs.forEach(({ name, value }) => {
-      const directive = checkDirective(name);
-      if (directive.type) {
-        if (directive.type === "for" || directive.type === "if") {
-          lazyCompileDir = directive.type;
-          lazyCompileExp = value;
+
+    attrs.forEach(({ name, value: exp }) => {
+      const { type, prop } = checkDirective(name);
+      if (type) {
+        if (type === "for" || type === "if") {
+          lazyCompileDir = type;
+          lazyCompileExp = exp;
         } else {
-          let handler = this[`${directive.type}Handler`];
+          const handler = this[`${type}Handler`];
           if (handler) {
-            handler.call(this, node, vm, value, directive.prop);
+            handler.call(this, node, vm, exp, prop);
           } else {
-            console.error(`找不到${directive.type}指令`);
+            console.error(`找不到${type}指令`);
           }
         }
         node.removeAttribute(name);
       }
     });
+
+    if (lazyCompileExp) {
+      Reflect.get(this, `${lazyCompileDir}Handler`)(node, vm, lazyCompileExp);
+      this.compile(node, vm);
+    } else {
+      this.compile(node, vm);
+    }
   }
 
   bindWatcher(node, vm, exp, dir, prop) {
     const updateFn = Reflect.get(updater, dir);
     console.log("updateFn", updateFn);
+    new Watcher(exp, vm, newValue => {
+      updateFn && updateFn(node, newValue, prop);
+    });
   }
 
   onHandler(node, vm, method, event) {
@@ -76,6 +89,10 @@ class Compiler {
   ifHandler(node, vm, exp, prop) {}
 
   textHandler(node, vm, exp, prop) {}
+
+  showHandler(node, vm, exp, prop) {
+    this.bindWatcher(node, vm, exp, "style", "display");
+  }
 }
 
 const nodeToFragment = node => {
@@ -92,6 +109,10 @@ const nodeToFragment = node => {
 
   return fragment;
 };
+
+const isTextNode = ({ nodeType }) => nodeType === 3;
+
+const isElementNode = ({ nodeType }) => nodeType === 1;
 
 const isIgnorable = node => {
   const reg = /^[\t\n\r]+/;
@@ -116,6 +137,12 @@ const checkDirective = attrName => {
 const updater = {
   attr(node, newValue = "", attrName) {
     node.setAttribute(attrName, newValue);
+  },
+  style(node, newValue = "", attrName) {
+    if (attrName === "display") {
+      newValue = newValue ? "initial" : "none";
+    }
+    node.style[attrName] = newValue;
   }
 };
 

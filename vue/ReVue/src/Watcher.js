@@ -29,14 +29,14 @@ class Watcher {
   }
 }
 
+const isObject = obj => obj !== null && typeof obj === "object";
+
 const deepEqual = (x, y) => {
   return isObject(x) && isObject(y)
     ? Object.keys(x).length === Object.keys(y).length &&
       Object.keys(x).every(key => deepEqual(x[key], y[key]))
     : x === y;
 };
-
-const isObject = obj => obj !== null && typeof obj === "object";
 
 const deepCopy = obj => (isObject(obj) ? JSON.parse(JSON.stringify(obj)) : obj);
 

@@ -8,11 +8,15 @@ const vm = new Vue({
     obj: {
       key: "value"
     },
-    arr: [1, 2, 3]
+    arr: [1, 2, 3],
+    show: false
   },
   methods: {
     onClick() {
-      console.log("methods");
+      console.log("on click method");
+    },
+    toggle() {
+      this.show = !this.show;
     }
   }
 });

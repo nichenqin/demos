@@ -13,6 +13,8 @@
     <div class="hello" v-if="hello" v-text="world" v-bind:arr="arr" :world="msg">
       <div @click="onClick">Hello World</div>
       <input type="text" v-model="msg">
+      <div v-show="show">v-show</div>
+      <button @click="toggle">toggle show</button>
       <!-- <span>{{msg}}</span> -->
     </div>
   </div>
