@@ -1,21 +1,19 @@
 const express = require("express");
+const exphbs = require("express-handlebars");
 const port = 5000;
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log(Date.now());
-  req.name = "nichenqin";
-  next();
-});
+// handlerbars middleware
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 app.get("/", (req, res) => {
-  console.log(req.name);
-  res.send("index");
+  res.render("index");
 });
 
 app.get("/about", (req, res) => {
-  res.send("about");
+  res.render("about");
 });
 
 app.listen(port, () => {
