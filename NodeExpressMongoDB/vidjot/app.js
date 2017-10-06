@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const exphbs = require("express-handlebars");
 const methodOverride = require("method-override");
@@ -8,6 +9,8 @@ const mongoose = require("mongoose");
 const port = 5000;
 
 const app = express();
+const ideas = require("./routes/ideas");
+const users = require("./routes/users");
 
 mongoose.Promise = global.Promise;
 
@@ -22,9 +25,6 @@ mongoose
     console.log(err);
   });
 
-require("./models/idea");
-const Idea = mongoose.model("ideas");
-
 // handlerbars middleware
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -32,6 +32,9 @@ app.set("view engine", "handlebars");
 // body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// static folder
+app.use(express.static(path.join(__dirname, "public")));
 
 // method override middleware
 app.use(methodOverride("_method"));
@@ -63,72 +66,8 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-app.get("/ideas", (req, res) => {
-  Idea.find({})
-    .sort({ date: "desc" })
-    .then(ideas => {
-      res.render("ideas/index", { ideas });
-    });
-});
-
-app.get("/ideas/add", (req, res) => {
-  res.render("ideas/add");
-});
-
-app.get("/ideas/edit/:id", (req, res) => {
-  Idea.findById(req.params.id).then(idea => {
-    res.render("ideas/edit", { idea });
-  });
-});
-
-app.post("/ideas", (req, res) => {
-  const { title, details } = req.body;
-  const errors = [];
-
-  if (!title) {
-    errors.push({ msg: "Please add title" });
-  }
-
-  if (!details) {
-    errors.push({ msg: "Please add details" });
-  }
-
-  if (errors.length) {
-    res.render("ideas/add", {
-      errors,
-      title,
-      details
-    });
-  } else {
-    const newUser = {
-      title,
-      details
-    };
-
-    new Idea(newUser).save().then(idea => {
-      req.flash("success_msg", "video idea added");
-      res.redirect("/ideas");
-    });
-  }
-});
-
-app.delete("/ideas/:id", (req, res) => {
-  Idea.findByIdAndRemove(req.params.id).then(() => {
-    req.flash("success_msg", "video idea removed");
-    res.redirect("/ideas");
-  });
-});
-
-app.put("/ideas/:id", (req, res) => {
-  Idea.findById(req.params.id).then(idea => {
-    idea.title = req.body.title;
-    idea.details = req.body.details;
-    idea.save().then(() => {
-      req.flash("success_msg", "video idea updated");
-      res.redirect("/ideas");
-    });
-  });
-});
+app.use("/ideas", ideas);
+app.use("/users", users);
 
 app.listen(port, () => {
   console.log(`server started on port ${port}`);
