@@ -15,6 +15,14 @@ router.get("/register", (req, res) => {
   res.render("users/register");
 });
 
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/ideas",
+    failureRedirect: "/users/login",
+    failureFlash: true
+  })(req, res, next);
+});
+
 router.post("/register", (req, res) => {
   const { name, email, password, password2 } = req.body;
   const errors = [];
@@ -61,6 +69,12 @@ router.post("/register", (req, res) => {
       }
     });
   }
+});
+
+router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash("success_msg", "logout success");
+  res.redirect("/usrs/login");
 });
 
 module.exports = router;
