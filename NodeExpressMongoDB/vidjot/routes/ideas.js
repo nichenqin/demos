@@ -1,29 +1,30 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
+const { ensureAuthenticated } = require("../helpers/auth");
 
 require("../models/idea");
 const Idea = mongoose.model("ideas");
 
-router.get("/", (req, res) => {
-  Idea.find({})
+router.get("/", ensureAuthenticated, (req, res) => {
+  Idea.find({ user: req.user.id })
     .sort({ date: "desc" })
     .then(ideas => {
       res.render("ideas/index", { ideas });
     });
 });
 
-router.get("/add", (req, res) => {
+router.get("/add", ensureAuthenticated, (req, res) => {
   res.render("ideas/add");
 });
 
-router.get("/edit/:id", (req, res) => {
+router.get("/edit/:id", ensureAuthenticated, (req, res) => {
   Idea.findById(req.params.id).then(idea => {
     res.render("ideas/edit", { idea });
   });
 });
 
-router.post("/", (req, res) => {
+router.post("/", ensureAuthenticated, (req, res) => {
   const { title, details } = req.body;
   const errors = [];
 
@@ -44,7 +45,8 @@ router.post("/", (req, res) => {
   } else {
     const newUser = {
       title,
-      details
+      details,
+      user: req.user.id
     };
 
     new Idea(newUser).save().then(idea => {
@@ -54,14 +56,14 @@ router.post("/", (req, res) => {
   }
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", ensureAuthenticated, (req, res) => {
   Idea.findByIdAndRemove(req.params.id).then(() => {
     req.flash("success_msg", "video idea removed");
     res.redirect("/");
   });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", ensureAuthenticated, (req, res) => {
   Idea.findById(req.params.id).then(idea => {
     idea.title = req.body.title;
     idea.details = req.body.details;
