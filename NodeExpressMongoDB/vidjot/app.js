@@ -7,18 +7,19 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const mongoose = require("mongoose");
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 const app = express();
 const ideas = require("./routes/ideas");
 const users = require("./routes/users");
 
 require("./config/passport")(passport);
+const db = require("./config/db");
 
 mongoose.Promise = global.Promise;
 
 mongoose
-  .connect("mongodb://localhost/vidjot-dev", {
+  .connect(db.mongoURI, {
     useMongoClient: true
   })
   .then(() => {
